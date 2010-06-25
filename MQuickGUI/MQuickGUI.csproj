@@ -1,0 +1,81 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7F1D20AD-4052-4AA8-8A12-EBF0BE94142C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MQuickGUI</RootNamespace>
+    <AssemblyName>MQuickGUI</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mogre, Version=0.2.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Mogre\ogrenew\Samples\Common\bin\Debug\Mogre.dll</HintPath>
+    </Reference>
+    <Reference Include="MOIS, Version=1.1.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Mogre\ogrenew\Samples\Common\bin\Release\MOIS.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="QuickGUITextBox.cs" />
+    <Compile Include="QuickGUIComboBox.cs" />
+    <Compile Include="QuickGUIImage.cs" />
+    <Compile Include="QuickGUIList.cs" />
+    <Compile Include="QuickGUIListItem.cs" />
+    <Compile Include="QuickGUIMenu.cs" />
+    <Compile Include="QuickGUIMenuList.cs" />
+    <Compile Include="QuickGUIMouseCursor.cs" />
+    <Compile Include="QuickGUIButton.cs" />
+    <Compile Include="QuickGUIEventArgs.cs" />
+    <Compile Include="QuickGUILabel.cs" />
+    <Compile Include="QuickGUIManager.cs" />
+    <Compile Include="QuickGUIMouseButtonId.cs" />
+    <Compile Include="QuickGUINStateButton.cs" />
+    <Compile Include="QuickGUIPanel.cs" />
+    <Compile Include="QuickGUIQuad.cs" />
+    <Compile Include="QuickGUIRenderer.cs" />
+    <Compile Include="QuickGUISheet.cs" />
+    <Compile Include="QuickGUIText.cs" />
+    <Compile Include="QuickGUITextCursor.cs" />
+    <Compile Include="QuickGUITitleBar.cs" />
+    <Compile Include="QuickGUIWidget.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="QuickGUIWindow.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

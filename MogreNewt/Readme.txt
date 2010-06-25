@@ -1,0 +1,1 @@
+The MogreNewt samples require the Newton.dll from the Newton Game Dynamics SDK 2.10 (http://newtondynamics.com/forum/downloads.php).

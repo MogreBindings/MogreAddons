@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<meta>
+  <namespace name="OIS">
+
+    <class name="InputManager" WrapType="PlainWrapper" NotConstructable=""/>
+    <class name="JoyStick" WrapType="PlainWrapper" NotConstructable="">
+      <function name="setEventCallback" Method="" ListenerSetter=""/>
+      <function name="getEventCallback" Ignore=""/>
+    </class>
+    <class name="Keyboard" WrapType="PlainWrapper" NotConstructable="">
+      <function name="setEventCallback" Method="" ListenerSetter=""/>
+      <function name="getEventCallback" Ignore=""/>
+    </class>
+    <class name="Mouse" WrapType="PlainWrapper" NotConstructable="">
+      <function name="setEventCallback" Method="" ListenerSetter=""/>
+      <function name="getEventCallback" Ignore=""/>
+    </class>
+
+    <class name="EventArg" WrapType="PlainWrapper" ConvertToCorrectSubclass="" NotConstructable=""/>
+    <class name="JoyStickEvent" WrapType="PlainWrapper" NotConstructable=""/>
+    <class name="KeyEvent" WrapType="PlainWrapper" NotConstructable=""/>
+    <class name="MouseEvent" WrapType="PlainWrapper" NotConstructable=""/>
+
+    <class name="JoyStickListener" WrapType="NativeDirector">
+      <function name="buttonPressed" DefaultReturnValue="true"/>
+      <function name="buttonReleased" DefaultReturnValue="true"/>
+      <function name="axisMoved" DefaultReturnValue="true"/>
+      <function name="sliderMoved" DefaultReturnValue="true"/>
+      <function name="povMoved" DefaultReturnValue="true"/>
+      <function name="vector3Moved" DefaultReturnValue="true"/>
+    </class>
+    <class name="KeyListener" WrapType="NativeDirector">
+      <function name="keyPressed" DefaultReturnValue="true"/>
+      <function name="keyReleased" DefaultReturnValue="true"/>
+    </class>
+    <class name="MouseListener" WrapType="NativeDirector">
+      <function name="mouseMoved" DefaultReturnValue="true"/>
+      <function name="mousePressed" DefaultReturnValue="true"/>
+      <function name="mouseReleased" DefaultReturnValue="true"/>
+    </class>
+
+    <class name="Object" WrapType="PlainWrapper" Rename="OISObject" ConvertToCorrectSubclass="" NotConstructable=""/>
+    <class name="Interface" WrapType="PlainWrapper" ConvertToCorrectSubclass="" NotConstructable=""/>
+    <class name="ForceFeedback" WrapType="PlainWrapper" NotConstructable=""/>
+
+    <class name="Vector3" WrapType="ValueType">
+      <function name="clear" Ignore=""/>
+    </class>
+
+    <!-- Wrap them as NativePtrs for better performance -->
+    <struct name="Pov" WrapType="NativePtrValueType" NotConstructable=""/>
+    <struct name="Slider" WrapType="NativePtrValueType" NotConstructable=""/>
+    <struct name="MouseState" WrapType="NativePtrValueType" NotConstructable=""/>
+    <struct name="Axis" WrapType="NativePtrValueType" NotConstructable=""/>
+
+    <class name="Effect" WrapType="PlainWrapper" ConvertToCorrectSubclass=""/>
+    <class name="ForceEffect" WrapType="PlainWrapper" ConvertToCorrectSubclass=""/>
+    <class name="Envelope" WrapType="PlainWrapper" ConvertToCorrectSubclass=""/>
+    <class name="ConstantEffect" WrapType="PlainWrapper" ConvertToCorrectSubclass=""/>
+    <class name="RampEffect" WrapType="PlainWrapper" ConvertToCorrectSubclass=""/>
+    <class name="PeriodicEffect" WrapType="PlainWrapper" ConvertToCorrectSubclass=""/>
+    <class name="ConditionalEffect" WrapType="PlainWrapper" ConvertToCorrectSubclass=""/>
+
+    <struct name="JoyStickState" WrapType="NativePtrValueType" NotConstructable="">
+      <variable name="mButtons" Ignore=""/>
+      <variable name="mAxes" Ignore=""/>
+      <variable name="mVectors" Ignore=""/>
+      <function name="clear" Ignore=""/>
+      <_CustomIncDeclaration>
+        public:
+        bool GetButton(int index);
+        Axis_NativePtr GetAxis(int index);
+        Vector3 GetVector(int index);
+
+        property int ButtonCount { int get() { return _native->mButtons.size(); } }
+        property int AxisCount { int get() { return _native->mAxes.size(); } }
+        property int VectorCount { int get() { return _native->mVectors.size(); } }
+      </_CustomIncDeclaration>
+      <_CustomCppDeclaration>
+        bool JoyStickState_NativePtr::GetButton(int index)
+        {
+          return _native->mButtons[index];
+        }
+        Axis_NativePtr JoyStickState_NativePtr::GetAxis(int index)
+        {
+          return _native->mAxes[index];
+        }
+        Vector3 JoyStickState_NativePtr::GetVector(int index)
+        {
+          return _native->mVectors[index];
+        }
+      </_CustomCppDeclaration>
+    </struct>
+
+
+    <!-- Replace 'copyKeyStates' function with a more 'managed' version -->
+    <class name="Keyboard">
+      <function name="copyKeyStates">
+        <_CustomIncDeclaration>
+          void CopyKeyStates( array&lt;System::Byte>^ keys );
+        </_CustomIncDeclaration>
+        <_CustomCppDeclaration>
+          void Keyboard::CopyKeyStates( array&lt;System::Byte>^ keys )
+          {
+            if (keys->Length &lt; 256)
+              throw gcnew System::ArgumentException("The length for the keys buffer must be equal or larger than 256.", "keys");
+             
+             pin_ptr&lt;System::Byte> p_keys = &amp;keys[0];
+             static_cast&lt;OIS::Keyboard*>(_native)->copyKeyStates((char*)p_keys);
+          }
+        </_CustomCppDeclaration>
+      </function>
+    </class>
+
+    <!-- to avoid name clash with System.Exception -->
+    <class name="Exception" WrapType="PlainWrapper" ReadOnly="" Rename="OISException" NotConstructable=""/>
+
+    <class name="FactoryCreator" Ignore=""/>
+
+  </namespace>
+</meta>

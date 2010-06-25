@@ -1,0 +1,7 @@
+- some violation exception in treecollision class  : repro bug here : http://www.ogre3d.org/addonforums/viewtopic.php?f=8&t=10997			
+- MogreNewt::CollisionPrimitives::ConvexHull exception if the entity is a ManualObject.
+- MogreNewt::CollisionPrimitives::ConvexHull exception if the Mogre object has a scale of 0
+- MogreNewt::World::SetThreadCount(2) produce a bug with bounding box updating of ogre object, see : 				http://www.ogre3d.org/addonforums/viewtopic.php?f=8&t=11247&p=64439
+- MaterialID second constructor (when you assign a custom id) is unusable. it cause an access violation exception when used on a body
+(because the id haven't be created using Newton functions)
+		
