@@ -23,8 +23,106 @@ namespace FSLOgreCS
             FSL_SS_NOSYSTEM							// no sound system
         };
 
+        public enum AL_DISTANCE_MODEL
+        {
+            /// <summary>
+            /// Inverse distance rolloff model, which is equivalent to the IASIG I3DL2 model with the exception that referenceDistance does not imply any clamping.
+            /// <code>gain = referenceDistance / (referenceDistance + rolloffFactor * (distance - referenceDistance))</code>
+            /// </summary>
+            AL_INVERSE_DISTANCE = 90,
+
+            /// <summary>
+            /// Inverse Distance clamped model, which is essentially the inverse distance rolloff model, extended to guarantee that for distances below referenceDistance, gain is clamped. This mode is equivalent to the IASIG I3DL2 distance model.
+            /// </summary>
+            AL_INVERSE_DISTANCE_CLAMPED,
+
+            /// <summary>
+            /// Linear distance rolloff model, modeling a linear dropoff in gain as distance increases between the source and listener.
+            /// <code>gain = (1 - rolloffFactor * (distance - referenceDistance) / (maxDistance - referenceDistance))</code>
+            /// </summary>
+            AL_LINEAR_DISTANCE,
+
+            /// <summary>
+            /// Linear Distance clamped model, which is the linear model, extended to guarantee that for distances below referenceDistance, gain is clamped.
+            /// </summary>
+            AL_LINEAR_DISTANCE_CLAMPED,
+
+            /// <summary>
+            /// Exponential distance rolloff model, modeling an exponential dropoff in gain as distance increases between the source and listener.
+            /// <code>gain = (distance / referenceDistance) ** (- rolloffFactor)</code>
+            /// </summary>
+            AL_EXPONENT_DISTANCE,
+
+            /// <summary>
+            /// Exponential Distance clamped model, which is the exponential model, extended to guarantee that for distances below referenceDistance, gain is clamped.
+            /// </summary>
+            AL_EXPONENT_DISTANCE_CLAMPED,
+        };
+
+
         [DllImport("FreeSL.dll", EntryPoint = "?fslInit@@YA_NW4FSL_SOUND_SYSTEM@@@Z")]
         public static extern bool fslInit(FSL_SOUND_SYSTEM val);
+
+        /// <summary>
+        /// Gets the current memory usage of all non-streaming sounds. This method does not seem to work properly.
+        /// </summary>
+        /// <returns></returns>
+        [DllImport("FreeSL.dll", EntryPoint = "?fslGetSoundMemoryUsage@@YAKXZ")]
+        public static extern ulong fslGetSoundMemoryUsage();
+
+        /// <summary>
+        /// Pauses all sounds currently playing.
+        /// </summary>
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundPauseAllSounds@@YAXXZ")]
+        public static extern void fslSoundPauseAllSounds();
+
+        /// <summary>
+        /// Unpauses all sounds currently paused.
+        /// </summary>
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundUnPauseAllSounds@@YAXXZ")]
+        public static extern void fslSoundUnPauseAllSounds();
+
+        /// <summary>
+        /// Stops all sounds currently playing.
+        /// </summary>
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundStopAllSounds@@YAXXZ")]
+        public static extern void fslSoundStopAllSounds();
+
+        /// <summary>
+        /// Sets the speed of all sounds.
+        /// </summary>
+        /// <param name="pitch">Speed between 0 and 1 at which to play the sound.</param>
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetPitchAllSounds@@YAXM@Z")]
+        public static extern void fslSoundSetSpeedAllSounds(float pitch);
+
+        /// <summary>
+        /// Sets the gain of all sounds.
+        /// </summary>
+        /// <param name="gain">Positive or negative gain to apply to all sounds.</param>
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetGainAllSounds@@YAXM@Z")]
+        public static extern void fslSoundSetGainAllSounds(float gain);
+
+        /// <summary>
+        /// Sets parameters for the doppler effect.
+        /// </summary>
+        /// <param name="factor">Factor by which to scale the Doppler effect. 0 = off, 1 = normal.</param>
+        /// <param name="velocity">A leftover input variable from OpenAL 1.0. Default value is 1.</param>
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetDopplerParameters@@YAXMM@Z")]
+        public static extern void fslSetDopplerParameters(float factor, float velocity);
+
+        /// <summary>
+        /// Sets speed of sound for use by the doppler effect.
+        /// </summary>
+        /// <param name="val">Speed of sound to assign. The default value is 343.3.</param>
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetSpeedOfSound@@YAXM@Z")]
+        public static extern void fslSetSpeedOfSound(float val);
+
+        /// <summary>
+        /// Sets the distance-based sound attenuation model. Controls how the gain of sound sources is affected by distance from the listener.
+        /// </summary>
+        /// <param name="model">Model to apply as the distance sound attenuation model. The default attenuation model is AL_INVERSE_DISTANCE_CLAMPED.</param>
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerDistanceModel@@YAXI@Z")]
+        public static extern void fslSetListenerDistanceModel(AL_DISTANCE_MODEL model);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslShutDown@@YAXXZ")]
         public static extern void fslShutDown();
@@ -43,9 +141,16 @@ namespace FSLOgreCS
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslLoadSoundFromZip@@YAIPBD0@Z")]
         public static extern uint fslLoadSoundFromZip(string strPackage, string strFile);
-
+        
+        /// <summary>
+        /// Enables or disables AutoUpdate, which allows streaming to work.
+        /// </summary>
+        /// <param name="auto">Whether to use AutoUpdate.</param>
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetAutoUpdate@@YAX_N@Z")]
+        public static extern void fslSetAutoUpdate(bool auto);
+        
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundPlay@@YAXI@Z")]
-        public static extern void fslSoundPlay(uint obj);// play the sound
+        public static extern void fslSoundPlay(uint obj);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundRewind@@YAXI@Z")]
         public static extern void fslSoundRewind(uint obj);
@@ -68,6 +173,9 @@ namespace FSLOgreCS
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsLooping@@YA_NI@Z")]
         public static extern bool fslSoundIsLooping(uint obj);
 
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetPitch@@YAXIM@Z")]
+        public static extern void fslSoundSetSpeed(uint obj, float pitch);
+        
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetGain@@YAXIM@Z")]
         public static extern void fslSoundSetGain(uint obj, float gain);
 
@@ -78,8 +186,7 @@ namespace FSLOgreCS
         public static extern void fslSetListenerPosition(float x, float y, float z);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerOrientation@@YAXMMMMMM@Z")]
-        public static extern void fslSetListenerOrientation(float atx, float aty, float atz,
-												  float upx, float upy, float upz);
+        public static extern void fslSetListenerOrientation(float atx, float aty, float atz, float upx, float upy, float upz);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetPosition@@YAXIMMM@Z")]
         public static extern void fslSoundSetPosition(uint obj, float x, float y, float z);
@@ -89,6 +196,7 @@ namespace FSLOgreCS
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetReferenceDistance@@YAXIM@Z")]
         public static extern void fslSoundSetReferenceDistance(uint obj, float ref_distance);
+
 
         // Listener Environments
         public enum FSL_LISTENER_ENVIRONMENT : int

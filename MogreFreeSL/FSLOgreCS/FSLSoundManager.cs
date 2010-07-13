@@ -13,6 +13,7 @@ namespace FSLOgreCS
         #endregion
 
         #region Singleton Stuff
+
         FSLSoundManager()
         {
             _initSound = false;
@@ -40,6 +41,7 @@ namespace FSLOgreCS
 
             internal static readonly FSLSoundManager instance = new FSLSoundManager();
         }
+
         #endregion 
 
         #region Private Members
@@ -51,24 +53,26 @@ namespace FSLOgreCS
         }
 
         #endregion
-        
-        public bool InitializeSound(Mogre.Camera listener)
+
+        public bool InitializeSound(FreeSL.FSL_SOUND_SYSTEM soundSystem, Mogre.Camera listener)
         {
             _listener = new FSLListener(listener);
             if (_initSound)
 			    return true;
 
-	        if (!FreeSL.fslInit(FreeSL.FSL_SOUND_SYSTEM.FSL_SS_DIRECTSOUND3D)) //Change if desire
+	        if (!FreeSL.fslInit(soundSystem)) //Change if you desire
 			    return false;
             
 	        _initSound = true;
 	        return true;
         }
+
         public void ShutDown()
         {
             FreeSL.fslShutDown();
             _initSound = false;
         }
+
         public float Volume
         {
             set
@@ -76,6 +80,7 @@ namespace FSLOgreCS
                 FreeSL.fslSetVolume(value);
             }
         }
+        
         public bool Initialized
         {
             get
@@ -83,14 +88,20 @@ namespace FSLOgreCS
                 return _initSound;
             }
         }
-        public void RemoveSound(string name)
+
+        public bool RemoveSound(string name)
         {
-	        FSLSoundObject sound = GetSound( name );
-	        if ( sound == null)
-		        return;
-	        else
-                sound = null;
+            FSLSoundObject sound = GetSound(name);
+            return RemoveSound(sound);
         }
+
+        public bool RemoveSound(FSLSoundObject sound)
+        {
+            if (sound.HasSound())
+                FreeSL.fslFreeSound(sound.SoundID, true);
+            return _soundObjectVector.Remove(sound);
+        }
+
         public FSLSoundObject GetSound(string name)
         {
 	        if (_soundObjectVector.Count == 0)
@@ -102,6 +113,7 @@ namespace FSLOgreCS
             }
 	        return null;
         }
+
         public void UpdateSoundObjects()
         {
 	        if (!_initSound)
@@ -112,6 +124,7 @@ namespace FSLOgreCS
                 sound.Update();
             }
         }
+
         public void SetListener(Mogre.Camera listener)
         {
 	        _listener = new FSLListener( listener );
@@ -122,24 +135,26 @@ namespace FSLOgreCS
 	        return _listener;
         }
 
-
         public FSLSoundObject CreateAmbientSound(string soundFile, string name, bool loop, bool streaming)
         {
 	        return AddSound( new FSLAmbientSound( soundFile, name, loop, streaming) );
         }
-        public FSLSoundObject CreateSoundEntity(string soundFile, Mogre.IRenderable renderable, string name, bool loop, bool streaming)
+        
+        public FSLSoundObject CreateSoundEntity(string soundFile, Mogre.Node node, string name, bool loop, bool streaming)
         {
-	        return AddSound( new FSLSoundEntity( soundFile, renderable, name, loop, streaming ) );
+	        return AddSound( new FSLSoundEntity( soundFile, node, name, loop, streaming ) );
         }
 
         public FSLSoundObject CreateAmbientSound(string package, string soundFile, string name, bool loop)
         {
             return AddSound(new FSLAmbientSound(package, soundFile, name, loop));
         }
-        public FSLSoundObject CreateSoundEntity(string package, string soundFile, Mogre.IRenderable renderable, string name, bool loop)
+        
+        public FSLSoundObject CreateSoundEntity(string package, string soundFile, Mogre.Node node, string name, bool loop)
         {
-            return AddSound(new FSLSoundEntity(package, soundFile, renderable, name, loop));
+            return AddSound(new FSLSoundEntity(package, soundFile, node, name, loop));
         }
+        
         public bool FrameStarted(Mogre.FrameEvent evt)
         {
             this.UpdateSoundObjects();

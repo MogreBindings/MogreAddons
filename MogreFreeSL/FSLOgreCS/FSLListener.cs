@@ -7,6 +7,8 @@ namespace FSLOgreCS
     public class FSLListener
     {
         private Mogre.Camera _renderable;
+        public bool ZFlipped = false;
+
     	public FSLListener()
         {
             _renderable = null;
@@ -21,15 +23,19 @@ namespace FSLOgreCS
         {
             _renderable = renderable;
         }
-    	
-	    public void Update()
+
+        public void Update()
         {
-            FreeSL.fslSetListenerPosition(_renderable.Position.x,
-                _renderable.Position.y,
-                _renderable.Position.z);
+            int zflip = (ZFlipped) ? -1 : 1; // added
+
+            FreeSL.fslSetListenerPosition(_renderable.RealPosition.x,
+                                          _renderable.RealPosition.y,
+                                          _renderable.RealPosition.z);
+
             Mogre.Vector3 yVec, zVec;
-            yVec = _renderable.Orientation.YAxis;
-            zVec = _renderable.Orientation.ZAxis;
+            yVec = _renderable.RealOrientation.YAxis;
+            zVec = _renderable.RealOrientation.ZAxis * zflip;// change
+
             FreeSL.fslSetListenerOrientation(zVec.x, zVec.y, zVec.z, yVec.x, yVec.y, yVec.z);
         }
 

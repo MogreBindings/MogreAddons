@@ -10,29 +10,41 @@ namespace FSLOgreCS
 	    protected string _name;
 	    protected bool _withSound;
 
+        /// <summary>
+        /// Gets the uint ID that FreeSL uses to identify this sound.
+        /// </summary>
+        public uint SoundID
+        {
+            get { return _sound; }
+        }
+
 	    public FSLSoundObject(string soundFile, string name, bool loop, bool streaming)
         {
             _withSound = false;
             _name = name;
 	        SetSound(soundFile, loop, streaming);
         }
+
         public FSLSoundObject(string package, string soundFile, string name, bool loop)
         {
             _withSound = false;
             _name = name;
             SetSound(package, soundFile, loop);
         }
-        public void Destroy(){
+
+        public void Destroy()
+        {
 		    RemoveSound();
 	    }
 
-        
-        public void RemoveSound(){
-		    if (_withSound){
-			    FreeSL.fslFreeSound(_sound,true);
-			    _withSound = false;
-		    }
-	    }
+        /// <summary>
+        /// Removes the sound data associated with the current SoundObject.
+        /// </summary>
+        public void RemoveSound()
+        {
+            FSLSoundManager.Instance.RemoveSound(this);
+        }
+
         public void SetSound(string soundFile, bool loop, bool streaming){
 	        RemoveSound();
             if (System.IO.File.Exists(soundFile) == false)
@@ -45,6 +57,7 @@ namespace FSLOgreCS
             LoopSound(loop);
 	        _withSound = true;
         }
+
         public void SetSound(string package, string soundFile, bool loop)
         {
             RemoveSound();
@@ -54,9 +67,17 @@ namespace FSLOgreCS
             LoopSound(loop);
             _withSound = true;
         }
+
+        /// <summary>
+        /// Returns whether the current SoundObject has a sound.
+        /// </summary>
         public bool HasSound(){
 	        return _withSound;
         }
+
+        /// <summary>
+        /// Gets or sets the name associated with the current SoundObject.
+        /// </summary>
         public string Name
         {
             get
@@ -68,37 +89,73 @@ namespace FSLOgreCS
                 _name = value;
             }
         }
+
+        /// <summary>
+        /// Starts the playback of the current SoundObject.
+        /// </summary>
         public void Play(){
 	        FreeSL.fslSoundPlay(_sound);
         }
 
+        /// <summary>
+        /// Stops the playback of the current SoundObject.
+        /// </summary>
         public void Stop(){
 	        FreeSL.fslSoundStop( _sound );
         }
 
+        /// <summary>
+        /// Returns whether the current SoundObject is playing.
+        /// </summary>
         public bool IsPlaying(){
 	        return FreeSL.fslSoundIsPlaying( _sound );
         }
 
+        /// <summary>
+        /// Pauses the playback of the current SoundObject.
+        /// </summary>
         public void Pause(){
 	        FreeSL.fslSoundPause( _sound );
         }
 
+        /// <summary>
+        /// Returns whether the current SoundObject is paused.
+        /// </summary>
         public bool IsPaused(){
 	        return FreeSL.fslSoundIsPaused( _sound );
         }
 
+        /// <summary>
+        /// Sets whether the current SoundObject is looping.
+        /// </summary>
         public void LoopSound(bool loop){
 	        FreeSL.fslSoundSetLooping(_sound, loop);
         }
 
+        /// <summary>
+        /// Returns whether the current SoundObject is looping.
+        /// </summary>
         public bool IsLooping(){
 	        return FreeSL.fslSoundIsLooping( _sound );
         }
 
+        /// <summary>
+        /// Sets the playback speed of the current SoundObject.
+        /// </summary>
+        /// <param name="speed">Speed between 0 and 1 at which to play the sound.</param>
+        public void SetSpeed(float speed)
+        {
+            FreeSL.fslSoundSetSpeed(_sound, speed);
+        }
+
+        /// <summary>
+        /// Sets the gain of the current SoundObject.
+        /// </summary>
+        /// <param name="gain">Positive or negative gain to apply to the sound.</param>
         public void SetGain( float gain ){
 	        FreeSL.fslSoundSetGain( _sound, gain );
         }
+
         public virtual void Update()
         {
         }

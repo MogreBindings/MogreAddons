@@ -6,36 +6,41 @@ namespace FSLOgreCS
 {
     public class FSLSoundEntity : FSLSoundObject
     {
-        protected Mogre.IRenderable _renderable;
+        protected Mogre.Node _node;
     	
-	    public FSLSoundEntity(string soundFile , Mogre.IRenderable renderable, string name , bool loop, bool streaming)
+	    public FSLSoundEntity(string soundFile , Mogre.Node node, string name , bool loop, bool streaming)
             : base(soundFile, name, loop, streaming)
         {
-            _renderable = renderable;
+            _node = node;
             SetReferenceDistance( 80.0f );
         }
-        public FSLSoundEntity(string package, string soundFile, Mogre.IRenderable renderable, string name, bool loop)
+
+        public FSLSoundEntity(string package, string soundFile, Mogre.Node node, string name, bool loop)
             : base(package, soundFile, name, loop)
         {
-            _renderable = renderable;
+            _node = node;
             SetReferenceDistance(80.0f);
         }
-        public void SetRenderable( Mogre.IRenderable renderable){
-            _renderable = renderable;
+
+        public void SetRenderable( Mogre.Node node)
+        {
+            _node = node;
         }
 
-        public override void Update(){
-            FreeSL.fslSoundSetPosition( _sound, 
-                _renderable.WorldPosition.x,
-                _renderable.WorldPosition.y,
-                _renderable.WorldPosition.z );
+        public override void Update()
+        {
+            Mogre.Vector3 pos = _node._getDerivedPosition();
+
+            FreeSL.fslSoundSetPosition(_sound, pos.x, pos.y, pos.z);
         }
 
-        public void SetMaxDistance(float distance){
+        public void SetMaxDistance(float distance)
+        {
             FreeSL.fslSoundSetMaxDistance(_sound, distance);
         }
 
-        public void SetReferenceDistance(float distance){
+        public void SetReferenceDistance(float distance)
+        {
             FreeSL.fslSoundSetReferenceDistance( _sound, distance );
         }
     }
