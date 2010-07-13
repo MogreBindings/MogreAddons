@@ -61,7 +61,7 @@ namespace FSLOgreCS
 
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslInit@@YA_NW4FSL_SOUND_SYSTEM@@@Z")]
-        public static extern bool fslInit(FSL_SOUND_SYSTEM val);
+        internal static extern bool fslInit(FSL_SOUND_SYSTEM val);
 
         /// <summary>
         /// Gets the current memory usage of all non-streaming sounds. This method does not seem to work properly.
@@ -125,22 +125,22 @@ namespace FSLOgreCS
         public static extern void fslSetListenerDistanceModel(AL_DISTANCE_MODEL model);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslShutDown@@YAXXZ")]
-        public static extern void fslShutDown();
+        internal static extern void fslShutDown();
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSetVolume@@YAXM@Z")]
         public static extern void fslSetVolume(float gain_mult);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslFreeSound@@YAXI_N@Z")]
-        public static extern void fslFreeSound(uint obj, bool remove_buffer);
+        internal static extern void fslFreeSound(uint obj, bool remove_buffer);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslLoadSound@@YAIPBD@Z")]
-        public static extern uint fslLoadSound(string strFile);
+        internal static extern uint fslLoadSound(string strFile);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslStreamSound@@YAIPBD@Z")]
-        public static extern uint fslStreamSound(string strFile);
+        internal static extern uint fslStreamSound(string strFile);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslLoadSoundFromZip@@YAIPBD0@Z")]
-        public static extern uint fslLoadSoundFromZip(string strPackage, string strFile);
+        internal static extern uint fslLoadSoundFromZip(string strPackage, string strFile);
         
         /// <summary>
         /// Enables or disables AutoUpdate, which allows streaming to work.
@@ -150,52 +150,52 @@ namespace FSLOgreCS
         public static extern void fslSetAutoUpdate(bool auto);
         
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundPlay@@YAXI@Z")]
-        public static extern void fslSoundPlay(uint obj);
+        internal static extern void fslSoundPlay(uint obj);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundRewind@@YAXI@Z")]
-        public static extern void fslSoundRewind(uint obj);
+        internal static extern void fslSoundRewind(uint obj);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundStop@@YAXI@Z")]
-        public static extern void fslSoundStop(uint obj);
+        internal static extern void fslSoundStop(uint obj);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundPause@@YAXI@Z")]
-        public static extern void fslSoundPause(uint obj);
+        internal static extern void fslSoundPause(uint obj);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsPlaying@@YA_NI@Z")]
-        public static extern bool fslSoundIsPlaying(uint obj);
+        internal static extern bool fslSoundIsPlaying(uint obj);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsPaused@@YA_NI@Z")]
-        public static extern bool fslSoundIsPaused(uint obj);
+        internal static extern bool fslSoundIsPaused(uint obj);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetLooping@@YAXI_N@Z")]
-        public static extern void fslSoundSetLooping(uint obj, bool loop_sound);
+        internal static extern void fslSoundSetLooping(uint obj, bool loop_sound);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsLooping@@YA_NI@Z")]
-        public static extern bool fslSoundIsLooping(uint obj);
+        internal static extern bool fslSoundIsLooping(uint obj);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetPitch@@YAXIM@Z")]
-        public static extern void fslSoundSetSpeed(uint obj, float pitch);
+        internal static extern void fslSoundSetSpeed(uint obj, float pitch);
         
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetGain@@YAXIM@Z")]
-        public static extern void fslSoundSetGain(uint obj, float gain);
+        internal static extern void fslSoundSetGain(uint obj, float gain);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetSourceRelative@@YAXI_N@Z")]
-        public static extern void fslSoundSetSourceRelative(uint obj, bool is_relative);
+        internal static extern void fslSoundSetSourceRelative(uint obj, bool is_relative);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerPosition@@YAXMMM@Z")]
-        public static extern void fslSetListenerPosition(float x, float y, float z);
+        internal static extern void fslSetListenerPosition(float x, float y, float z);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerOrientation@@YAXMMMMMM@Z")]
-        public static extern void fslSetListenerOrientation(float atx, float aty, float atz, float upx, float upy, float upz);
+        internal static extern void fslSetListenerOrientation(float atx, float aty, float atz, float upx, float upy, float upz);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetPosition@@YAXIMMM@Z")]
-        public static extern void fslSoundSetPosition(uint obj, float x, float y, float z);
+        internal static extern void fslSoundSetPosition(uint obj, float x, float y, float z);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetMaxDistance@@YAXIM@Z")]
-        public static extern void fslSoundSetMaxDistance(uint obj, float max_distance);
+        internal static extern void fslSoundSetMaxDistance(uint obj, float max_distance);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetReferenceDistance@@YAXIM@Z")]
-        public static extern void fslSoundSetReferenceDistance(uint obj, float ref_distance);
+        internal static extern void fslSoundSetReferenceDistance(uint obj, float ref_distance);
 
 
         // Listener Environments

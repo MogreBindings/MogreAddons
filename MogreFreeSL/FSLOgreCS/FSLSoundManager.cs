@@ -54,6 +54,12 @@ namespace FSLOgreCS
 
         #endregion
 
+        /// <summary>
+        /// Initializes the sound system.
+        /// </summary>
+        /// <param name="soundSystem">Enumeration of FSL_SOUND_SYSTEM to use.</param>
+        /// <param name="listener">Camera to use as a listener for 3D sound.</param>
+        /// <returns></returns>
         public bool InitializeSound(FreeSL.FSL_SOUND_SYSTEM soundSystem, Mogre.Camera listener)
         {
             _listener = new FSLListener(listener);
@@ -135,21 +141,51 @@ namespace FSLOgreCS
 	        return _listener;
         }
 
+        /// <summary>
+        /// Create a sound that may not be rendered in 3D space.
+        /// </summary>
+        /// <param name="soundFile">Location of file to use.</param>
+        /// <param name="name">Name of the 3D sound.</param>
+        /// <param name="loop">Sets whether the sound should automatically loop.</param>
+        /// <param name="streaming">Sets whether the sound should be streamed instead of statically loaded. FreeSL.fslAutoUpdate(true) should be called after sound manager initialization if this is set to true.</param>
         public FSLSoundObject CreateAmbientSound(string soundFile, string name, bool loop, bool streaming)
         {
 	        return AddSound( new FSLAmbientSound( soundFile, name, loop, streaming) );
         }
         
+        /// <summary>
+        /// Create a sound that may be rendered in 3D space.
+        /// </summary>
+        /// <param name="soundFile">Location of file to use.</param>
+        /// <param name="node">Node to attach the 3D sound to.</param>
+        /// <param name="name">Name of the 3D sound.</param>
+        /// <param name="loop">Sets whether the sound should automatically loop.</param>
+        /// <param name="streaming">Sets whether the sound should be streamed instead of statically loaded. FreeSL.fslAutoUpdate(true) should be called after sound manager initialization if this is set to true.</param>
         public FSLSoundObject CreateSoundEntity(string soundFile, Mogre.Node node, string name, bool loop, bool streaming)
         {
 	        return AddSound( new FSLSoundEntity( soundFile, node, name, loop, streaming ) );
         }
 
+        /// <summary>
+        /// Create a sound that may not be rendered in 3D space.
+        /// </summary>
+        /// <param name="package">Zip file to load sound from.</param>
+        /// <param name="soundFile">Name of file to use.</param>
+        /// <param name="name">Name of the 3D sound.</param>
+        /// <param name="loop">Sets whether the sound should automatically loop.</param>
         public FSLSoundObject CreateAmbientSound(string package, string soundFile, string name, bool loop)
         {
             return AddSound(new FSLAmbientSound(package, soundFile, name, loop));
         }
         
+        /// <summary>
+        /// Create a sound that may be rendered in 3D space.
+        /// </summary>
+        /// <param name="package">Zip file to load sound from.</param>
+        /// <param name="soundFile">Name of file to use.</param>
+        /// <param name="node">Node to attach the 3D sound to.</param>
+        /// <param name="name">Name of the 3D sound.</param>
+        /// <param name="loop">Sets whether the sound should automatically loop.</param>
         public FSLSoundObject CreateSoundEntity(string package, string soundFile, Mogre.Node node, string name, bool loop)
         {
             return AddSound(new FSLSoundEntity(package, soundFile, node, name, loop));
