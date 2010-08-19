@@ -32,6 +32,8 @@ namespace FSLOgreCS
             Mogre.Vector3 pos = _node._getDerivedPosition();
 
             FreeSL.fslSoundSetPosition(_sound, pos.x, pos.y, pos.z);
+
+            AutoDelete();
         }
 
         public void SetMaxDistance(float distance)

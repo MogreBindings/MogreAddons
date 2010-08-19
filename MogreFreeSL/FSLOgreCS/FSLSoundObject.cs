@@ -7,8 +7,14 @@ namespace FSLOgreCS
     public class FSLSoundObject
     {
 	    protected uint _sound;
-	    protected string _name;
-	    protected bool _withSound;
+        protected string _name;
+        protected bool _withSound;
+
+        /// <summary>
+        /// Automatically destroys the sound after its first play-through. Will not work for looped sounds.
+        /// </summary>
+        public bool destroyAfterPlaying = false;
+        internal bool wasPlayed = false;
 
         /// <summary>
         /// Gets the uint ID that FreeSL uses to identify this sound.
@@ -45,8 +51,8 @@ namespace FSLOgreCS
             FSLSoundManager.Instance.RemoveSound(this);
         }
 
-        public void SetSound(string soundFile, bool loop, bool streaming){
-	        RemoveSound();
+        public void SetSound(string soundFile, bool loop, bool streaming)
+        {
             if (System.IO.File.Exists(soundFile) == false)
                 throw new System.IO.FileNotFoundException("The sound file at : " + soundFile + " does not exist.");
             if (streaming)
@@ -60,7 +66,6 @@ namespace FSLOgreCS
 
         public void SetSound(string package, string soundFile, bool loop)
         {
-            RemoveSound();
             if (System.IO.File.Exists(package) == false)
                 throw new System.IO.FileNotFoundException("The sound file at : " + soundFile + " does not exist.");
             FreeSL.fslLoadSoundFromZip(package, soundFile);
@@ -95,6 +100,7 @@ namespace FSLOgreCS
         /// </summary>
         public void Play(){
 	        FreeSL.fslSoundPlay(_sound);
+            wasPlayed = true;
         }
 
         /// <summary>
@@ -158,6 +164,12 @@ namespace FSLOgreCS
 
         public virtual void Update()
         {
+        }
+
+        internal void AutoDelete()
+        {
+            if (destroyAfterPlaying && !IsPlaying() && wasPlayed)
+                Destroy();
         }
     }
 }

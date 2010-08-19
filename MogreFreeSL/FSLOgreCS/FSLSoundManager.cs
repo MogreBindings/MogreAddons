@@ -45,6 +45,17 @@ namespace FSLOgreCS
         #endregion 
 
         #region Private Members
+
+        /// <summary>
+        /// Returns the number of sounds currently set up & playable.
+        /// </summary>
+        public int NumberOfSounds
+        {
+            get
+            {
+                return _soundObjectVector.Count;
+            }
+        }
         
         private FSLSoundObject AddSound(FSLSoundObject sound)
         {
@@ -73,7 +84,7 @@ namespace FSLOgreCS
 	        return true;
         }
 
-        public void ShutDown()
+        internal void ShutDown()
         {
             FreeSL.fslShutDown();
             _initSound = false;
@@ -124,10 +135,10 @@ namespace FSLOgreCS
         {
 	        if (!_initSound)
 		        return;
-	        _listener.Update();	
-	        foreach (FSLSoundObject sound in _soundObjectVector)
+	        _listener.Update();
+            for (int i = _soundObjectVector.Count - 1; i >= 0; i--)
             {
-                sound.Update();
+                _soundObjectVector[i].Update();
             }
         }
 
@@ -141,6 +152,8 @@ namespace FSLOgreCS
 	        return _listener;
         }
 
+        #region AmbientSound Creation
+
         /// <summary>
         /// Create a sound that may not be rendered in 3D space.
         /// </summary>
@@ -151,19 +164,6 @@ namespace FSLOgreCS
         public FSLSoundObject CreateAmbientSound(string soundFile, string name, bool loop, bool streaming)
         {
 	        return AddSound( new FSLAmbientSound( soundFile, name, loop, streaming) );
-        }
-        
-        /// <summary>
-        /// Create a sound that may be rendered in 3D space.
-        /// </summary>
-        /// <param name="soundFile">Location of file to use.</param>
-        /// <param name="node">Node to attach the 3D sound to.</param>
-        /// <param name="name">Name of the 3D sound.</param>
-        /// <param name="loop">Sets whether the sound should automatically loop.</param>
-        /// <param name="streaming">Sets whether the sound should be streamed instead of statically loaded. FreeSL.fslAutoUpdate(true) should be called after sound manager initialization if this is set to true.</param>
-        public FSLSoundObject CreateSoundEntity(string soundFile, Mogre.Node node, string name, bool loop, bool streaming)
-        {
-	        return AddSound( new FSLSoundEntity( soundFile, node, name, loop, streaming ) );
         }
 
         /// <summary>
@@ -176,6 +176,23 @@ namespace FSLOgreCS
         public FSLSoundObject CreateAmbientSound(string package, string soundFile, string name, bool loop)
         {
             return AddSound(new FSLAmbientSound(package, soundFile, name, loop));
+        }
+
+        #endregion
+
+        #region SoundEntity Creation
+
+        /// <summary>
+        /// Create a sound that may be rendered in 3D space.
+        /// </summary>
+        /// <param name="soundFile">Location of file to use.</param>
+        /// <param name="node">Node to attach the 3D sound to.</param>
+        /// <param name="name">Name of the 3D sound.</param>
+        /// <param name="loop">Sets whether the sound should automatically loop.</param>
+        /// <param name="streaming">Sets whether the sound should be streamed instead of statically loaded. FreeSL.fslAutoUpdate(true) should be called after sound manager initialization if this is set to true.</param>
+        public FSLSoundObject CreateSoundEntity(string soundFile, Mogre.Node node, string name, bool loop, bool streaming)
+        {
+	        return AddSound( new FSLSoundEntity( soundFile, node, name, loop, streaming ) );
         }
         
         /// <summary>
@@ -190,7 +207,9 @@ namespace FSLOgreCS
         {
             return AddSound(new FSLSoundEntity(package, soundFile, node, name, loop));
         }
-        
+
+        #endregion
+
         public bool FrameStarted(Mogre.FrameEvent evt)
         {
             this.UpdateSoundObjects();
@@ -199,10 +218,12 @@ namespace FSLOgreCS
                 
         public void Destroy(){
 	        if (_soundObjectVector.Count != 0){
-		       	foreach (FSLSoundObject sound in _soundObjectVector)
+                
+                for (int i = 0; i < _soundObjectVector.Count; i++)
                 {
-                    sound.Destroy();
+                    _soundObjectVector[i].Destroy();
                 }
+                
                 _soundObjectVector.Clear();
 	        }
 	        if ( _listener != null)

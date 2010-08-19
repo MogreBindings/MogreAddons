@@ -17,7 +17,9 @@ namespace FSLOgreCS
             FreeSL.fslSoundSetSourceRelative(_sound, true);
         }
 
-        public override void Update(){
+        public override void Update()
+        {
+            AutoDelete();
         }
     }
 }
