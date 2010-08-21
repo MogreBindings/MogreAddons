@@ -54,7 +54,7 @@ namespace FSLOgreCS
         public void SetSound(string soundFile, bool loop, bool streaming)
         {
             if (System.IO.File.Exists(soundFile) == false)
-                throw new System.IO.FileNotFoundException("The sound file at : " + soundFile + " does not exist.");
+                throw new System.IO.FileNotFoundException("The sound file : " + soundFile + " does not exist.");
             if (streaming)
                 _sound = FreeSL.fslStreamSound(soundFile);
             else
@@ -67,8 +67,9 @@ namespace FSLOgreCS
         public void SetSound(string package, string soundFile, bool loop)
         {
             if (System.IO.File.Exists(package) == false)
-                throw new System.IO.FileNotFoundException("The sound file at : " + soundFile + " does not exist.");
-            FreeSL.fslLoadSoundFromZip(package, soundFile);
+                throw new System.IO.FileNotFoundException("The sound file : " + soundFile + "in" + package + " does not exist.");
+            _sound = FreeSL.fslLoadSoundFromZip(package, soundFile);
+
             LoopSound(loop);
             _withSound = true;
         }
