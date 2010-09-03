@@ -1,20 +1,20 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace FSLOgreCS
 {
-    public class FSLListener
+    public class MogreCameraFSLListener : IFSLListener
     {
         private Mogre.Camera _renderable;
         public bool ZFlipped = false;
 
-    	public FSLListener()
+        public MogreCameraFSLListener()
         {
             _renderable = null;
         }
-	
-	    public FSLListener( Mogre.Camera renderable)
+
+        public MogreCameraFSLListener(Mogre.Camera renderable):this()
         {
             _renderable = renderable;
         }
@@ -39,9 +39,27 @@ namespace FSLOgreCS
             FreeSL.fslSetListenerOrientation(zVec.x, zVec.y, zVec.z, yVec.x, yVec.y, yVec.z);
         }
 
-        public Mogre.Vector3 GetPosition()
+        public FSLPosition Position
         {
-            return _renderable.Position;
+            get
+            {
+                Mogre.Vector3 position = _renderable.Position;
+                return new FSLPosition(position.x, position.y, position.z);
+            }
+        }
+
+        public FSLOrientation Orientation
+        {
+            get
+            {
+                int zflip = (ZFlipped) ? -1 : 1; // added
+
+                Mogre.Vector3 yVec, zVec;
+                yVec = _renderable.RealOrientation.YAxis;
+                zVec = _renderable.RealOrientation.ZAxis * zflip;// change
+
+                return new FSLOrientation(zVec.x, zVec.y, zVec.z, yVec.x, yVec.y, yVec.z);
+            }
         }
     }
 }
