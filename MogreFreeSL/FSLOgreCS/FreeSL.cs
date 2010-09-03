@@ -162,6 +162,7 @@ namespace FSLOgreCS
         internal static extern void fslSoundPause(uint obj);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsPlaying@@YA_NI@Z")]
+        [return: MarshalAs(UnmanagedType.U1)]
         internal static extern bool fslSoundIsPlaying(uint obj);
 
         [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsPaused@@YA_NI@Z")]

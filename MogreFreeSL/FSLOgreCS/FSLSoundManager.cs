@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections.ObjectModel;
 
 namespace FSLOgreCS
 {
@@ -8,8 +9,18 @@ namespace FSLOgreCS
     {
         #region Variables
         private List<FSLSoundObject> _soundObjectVector = new List<FSLSoundObject>();
+
+        /// <summary>
+        /// Read only Collection of contained sounds. 
+        /// </summary>
+        public ReadOnlyCollection<FSLSoundObject> SoundObjectsCollection
+        {
+            get { return _soundObjectVector.AsReadOnly(); }
+        }
+
+
         private bool _initSound;
-        private FSLListener _listener;
+        private IFSLListener _listener;
         #endregion
 
         #region Singleton Stuff
@@ -73,15 +84,26 @@ namespace FSLOgreCS
         /// <returns></returns>
         public bool InitializeSound(FreeSL.FSL_SOUND_SYSTEM soundSystem, Mogre.Camera listener)
         {
-            _listener = new FSLListener(listener);
-            if (_initSound)
-			    return true;
+	        return InitializeSound(soundSystem,new MogreCameraFSLListener(listener));
+        }
 
-	        if (!FreeSL.fslInit(soundSystem)) //Change if you desire
-			    return false;
-            
-	        _initSound = true;
-	        return true;
+        /// <summary>
+        /// Initializes the sound system.
+        /// </summary>
+        /// <param name="soundSystem">Enumeration of FSL_SOUND_SYSTEM to use.</param>
+        /// <param name="listener">Sound receiver position listener for 3D sound a.k.a. "The Ears Position"</param>
+        /// <returns></returns>
+        public bool InitializeSound(FreeSL.FSL_SOUND_SYSTEM soundSystem,IFSLListener listener)
+        {
+            _listener = listener;
+            if (_initSound)
+                return true;
+
+            if (!FreeSL.fslInit(soundSystem)) //Change if you desire
+                return false;
+
+            _initSound = true;
+            return true;
         }
 
         internal void ShutDown()
@@ -116,7 +138,11 @@ namespace FSLOgreCS
         {
             if (sound.HasSound())
                 FreeSL.fslFreeSound(sound.SoundID, true);
-            return _soundObjectVector.Remove(sound);
+            bool ret = _soundObjectVector.Remove(sound);
+            if (ret)
+                OnSoundRemoved(sound);
+
+            return ret;
         }
 
         public FSLSoundObject GetSound(string name)
@@ -135,19 +161,33 @@ namespace FSLOgreCS
         {
 	        if (!_initSound)
 		        return;
-	        _listener.Update();
+
             for (int i = _soundObjectVector.Count - 1; i >= 0; i--)
             {
                 _soundObjectVector[i].Update();
             }
         }
 
-        public void SetListener(Mogre.Camera listener)
+        public void UpdateListener()
         {
-	        _listener = new FSLListener( listener );
+            if (!_initSound)
+                return;
+
+            FSLPosition position = _listener.Position;
+            FSLOrientation orientation = _listener.Orientation;
+
+            FreeSL.fslSetListenerPosition(position.x, position.y, position.z);
+
+            FreeSL.fslSetListenerOrientation(orientation.atx,orientation.aty,orientation.atz,
+                                             orientation.upx,orientation.upy,orientation.upz);
         }
 
-        public FSLListener GetListener()
+        public void SetListener(IFSLListener listener)
+        {
+            _listener = listener;
+        }
+
+        public IFSLListener GetListener()
         {
 	        return _listener;
         }
@@ -192,7 +232,7 @@ namespace FSLOgreCS
         /// <param name="streaming">Sets whether the sound should be streamed instead of statically loaded. FreeSL.fslAutoUpdate(true) should be called after sound manager initialization if this is set to true.</param>
         public FSLSoundObject CreateSoundEntity(string soundFile, Mogre.Node node, string name, bool loop, bool streaming)
         {
-	        return AddSound( new FSLSoundEntity( soundFile, node, name, loop, streaming ) );
+            return CreateSoundEntity(soundFile, new NodePositionProvider(node), name, loop, streaming);
         }
         
         /// <summary>
@@ -205,15 +245,86 @@ namespace FSLOgreCS
         /// <param name="loop">Sets whether the sound should automatically loop.</param>
         public FSLSoundObject CreateSoundEntity(string package, string soundFile, Mogre.Node node, string name, bool loop)
         {
-            return AddSound(new FSLSoundEntity(package, soundFile, node, name, loop));
+            return CreateSoundEntity(package, soundFile, new NodePositionProvider(node), name, loop);
         }
+
+        /// <summary>
+        /// Create a sound that may be rendered in 3D space.
+        /// </summary>
+        /// <param name="soundFile">Location of file to use.</param>
+        /// <param name="positionProvider">Position provider for the 3D sound.</param>
+        /// <param name="name">Name of the 3D sound.</param>
+        /// <param name="loop">Sets whether the sound should automatically loop.</param>
+        /// <param name="streaming">Sets whether the sound should be streamed instead of statically loaded. FreeSL.fslAutoUpdate(true) should be called after sound manager initialization if this is set to true.</param>
+        public FSLSoundObject CreateSoundEntity(string soundFile,IFSLPositionProvider positionProvider, string name, bool loop, bool streaming)
+        {
+            FSLSoundObject soundObject = new FSLSoundObject(soundFile, positionProvider, name, loop, streaming);
+            soundObject.SetReferenceDistance(80.0f);
+            return AddSound(soundObject);
+        }
+
+        /// <summary>
+        /// Create a sound that may be rendered in 3D space.
+        /// </summary>
+        /// <param name="package">Zip file to load sound from.</param>
+        /// <param name="soundFile">Name of file to use.</param>
+        /// <param name="positionProvider">Position provider for the 3D sound.</param>
+        /// <param name="name">Name of the 3D sound.</param>
+        /// <param name="loop">Sets whether the sound should automatically loop.</param>
+        public FSLSoundObject CreateSoundEntity(string package, string soundFile,IFSLPositionProvider positionProvider, string name, bool loop)
+        {
+            FSLSoundObject soundObject=new FSLSoundObject(package, soundFile, positionProvider, name, loop);
+            soundObject.SetReferenceDistance(80.0f);
+            return AddSound(soundObject);
+        }
+
+        #endregion
+
+        #region SoundObject Creation
+
+        /// <summary>
+        /// Create a sound that may be rendered in 3D space.
+        /// </summary>
+        /// <param name="soundFile">Location of file to use.</param>
+        /// <param name="position">Position provider gives position for the 3D sound.</param>
+        /// <param name="name">Name of the 3D sound.</param>
+        /// <param name="loop">Sets whether the sound should automatically loop.</param>
+        /// <param name="streaming">Sets whether the sound should be streamed instead of statically loaded. FreeSL.fslAutoUpdate(true) should be called after sound manager initialization if this is set to true.</param>
+        public FSLSoundObject CreateSoundObject(string soundFile, IFSLPositionProvider position, string name, bool loop, bool streaming)
+        {
+            FSLSoundObject soundObject = new FSLSoundObject(soundFile, name, loop, streaming);
+            soundObject.PositionProvider = position;
+            return AddSound(soundObject);
+        }
+
+        /// <summary>
+        /// Create a sound that may be rendered in 3D space.
+        /// </summary>
+        /// <param name="package">Zip file to load sound from.</param>
+        /// <param name="soundFile">Name of file to use.</param>
+        /// <param name="position">Position object to attach the 3D sound to.</param>
+        /// <param name="name">Name of the 3D sound.</param>
+        /// <param name="loop">Sets whether the sound should automatically loop.</param>
+        public FSLSoundObject CreateSoundObject(string package, string soundFile, IFSLPositionProvider position, string name, bool loop)
+        {
+            FSLSoundObject soundObject = new FSLSoundObject(package, soundFile, name, loop);
+            soundObject.PositionProvider = position;
+            return AddSound(soundObject);
+        }
+
 
         #endregion
 
         public bool FrameStarted(Mogre.FrameEvent evt)
         {
-            this.UpdateSoundObjects();
+            this.Update();
             return true;
+        }
+
+        public void Update()
+        {
+            UpdateListener();
+            UpdateSoundObjects();
         }
                 
         public void Destroy(){
@@ -301,5 +412,16 @@ namespace FSLOgreCS
 
         }
         #endregion
+
+        public event EventHandler<FSLSoundRemovedEventArgs> SoundRemoved;
+        protected void OnSoundRemoved(FSLSoundObject sound)
+        {
+            sound.OnSoundRemoved();
+            if (SoundRemoved != null)
+            {
+                FSLSoundRemovedEventArgs soundRemovedEventArgs = new FSLSoundRemovedEventArgs(sound);
+                SoundRemoved(this, soundRemovedEventArgs);
+            }
+        }
     }
 }
