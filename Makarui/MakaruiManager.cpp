@@ -128,8 +128,14 @@ namespace Makarui
 		return ManagedCtrl;
 	}
 
+
 	void MakaruiManager::DestroyFlashControl(Makarui::FlashControl^ ofControl)
 	{
+		if(!_ControlDictionary->ContainsKey(ofControl->Name))
+			return;
+
+		ofControl->Destroy();
+		_ControlDictionary->Remove(ofControl->Name);
 	}
 
 	void MakaruiManager::Update()
