@@ -318,7 +318,7 @@ public:
 	//! get the Newton SDK version.
 	property int Version 
   { 
-    int get() { return NewtonWorldGetVersion( m_world ); }
+    int get() { return NewtonWorldGetVersion(); }
   }
 
 	//! updates only the collision of the world and call the callback functions if necessary, can be used for an collision only system

@@ -97,6 +97,7 @@ namespace MogreNewt
 
 			if (info->mDistance < dist)
 			{
+				dist = info->mDistance;
 				ret = info;
 			}
 		}
