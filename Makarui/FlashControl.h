@@ -49,6 +49,7 @@ namespace Makarui
 			unsigned int _texWidth;
 			unsigned int _texHeight;
 			Makarui::RelativePosition _RelPosition;
+			
 
 		public protected:
 			FlashControl(Akarui::FlashMovie* ofFlashMovie,System::String^ pName,Mogre::Viewport^ pViewport);
@@ -60,7 +61,7 @@ namespace Makarui
 			//internal function to draw a movie
 			void Draw();
 
-			void createOverlay(unsigned int width,unsigned int height,unsigned short zOrder,unsigned short zTier);
+			void createOverlay(unsigned int width,unsigned int height,unsigned short zOrder,unsigned short zTier, bool IsTransparent);
 
 			Akarui::FlashMovie* GetNative()
 			{

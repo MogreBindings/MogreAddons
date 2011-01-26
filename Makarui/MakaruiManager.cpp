@@ -78,10 +78,15 @@ namespace Makarui
 
 	Makarui::FlashControl^ MakaruiManager::CreateFlashOverlay(System::String^ Name,Mogre::Viewport^ oViewport,int Width,int Height,unsigned short zOrder,unsigned short zTier,bool IsTransparent)
 	{
-		return this->CreateFlashOverlay(Name,oViewport,Width,Height,zOrder,zTier,IsTransparent,Makarui::ScaleMode::SHOWALL);
+		return this->CreateFlashOverlay(Name,oViewport,Width,Height,zOrder,zTier,IsTransparent,Makarui::ScaleMode::SHOWALL,Makarui::RenderQuality::MEDIUM);
 	}
 
 	Makarui::FlashControl^ MakaruiManager::CreateFlashOverlay(System::String^ Name,Mogre::Viewport^ oViewport,int Width,int Height,unsigned short zOrder,unsigned short zTier,bool IsTransparent,Makarui::ScaleMode sMode)
+	{
+		return this->CreateFlashOverlay(Name,oViewport,Width,Height,zOrder,zTier,IsTransparent,sMode,Makarui::RenderQuality::MEDIUM);
+	}
+
+	Makarui::FlashControl^ MakaruiManager::CreateFlashOverlay(System::String^ Name,Mogre::Viewport^ oViewport,int Width,int Height,unsigned short zOrder,unsigned short zTier,bool IsTransparent,Makarui::ScaleMode sMode, Makarui::RenderQuality sRenderQuality)
 	{
 		Ogre::String NativeCtrlName;
 		Utilities::GetNativeString(NativeCtrlName,Name);
@@ -106,11 +111,11 @@ namespace Makarui
 
 
 		Akarui::FlashOptions argVal;
-		argVal.renderQuality = Akarui::RQ_BEST;
+		argVal.renderQuality = Utilities::ToUM_RenderQuality(sRenderQuality);
 		argVal.scaleMode = Utilities::ToUM_ScaleMode(sMode);
 		Akarui::FlashMovie* nativeCtrl = NativeManager->createFlashMovie(NativeCtrlName,Width,Height,IsTransparent,argVal);
 		FlashControl^ ManagedCtrl = gcnew FlashControl(nativeCtrl,Name,oViewport);
-		ManagedCtrl->createOverlay(Width,Height,zOrder,zTier);
+		ManagedCtrl->createOverlay(Width,Height,zOrder,zTier, IsTransparent);
 
 		_ControlDictionary->Add(Name,ManagedCtrl);
 		return ManagedCtrl;

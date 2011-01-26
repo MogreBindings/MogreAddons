@@ -78,6 +78,8 @@ namespace Makarui
 
 			Makarui::FlashControl^ CreateFlashOverlay(System::String^ Name,Mogre::Viewport^ oViewport,int Width,int Height,unsigned short zOrder,unsigned short zTier,bool IsTransparent,Makarui::ScaleMode sMode);
 
+			Makarui::FlashControl^ MakaruiManager::CreateFlashOverlay(System::String^ Name,Mogre::Viewport^ oViewport,int Width,int Height,unsigned short zOrder,unsigned short zTier,bool IsTransparent,Makarui::ScaleMode sMode, Makarui::RenderQuality sRenderQuality);
+
 			Makarui::FlashControl^ CreateFlashMaterial(System::String^ Name, int Width, int Height,bool IsTransparent);
 
 			void DestroyFlashControl(Makarui::FlashControl^ ofControl);

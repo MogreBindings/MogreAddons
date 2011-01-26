@@ -70,7 +70,6 @@ namespace Makarui
 			((Dictionary<System::String^,CallbackDelegate^>^)_ManagedDelegate)->Remove(MFuncName);
 		}
 
-
 		FlashControl::FlashControl(Akarui::FlashMovie* ofFlashMovie,System::String^ pName,Mogre::Viewport^ pViewport)
 		{
 			_NativeControl = ofFlashMovie;
@@ -143,7 +142,9 @@ namespace Makarui
 
 			_FirstFrame = false;
 
+			
 			Ogre::TexturePtr nativeTexPtr = (Ogre::TexturePtr)this->_WebTexture;
+			
 			Ogre::HardwarePixelBufferSharedPtr pixelBuffer = nativeTexPtr->getBuffer();
 			pixelBuffer->lock(Ogre::HardwareBuffer::HBL_DISCARD);
 			const Ogre::PixelBox& pixelBox = pixelBuffer->getCurrentLock();
@@ -153,11 +154,11 @@ namespace Makarui
 			Ogre::uint8* dstData = static_cast<Ogre::uint8*>(pixelBox.data);
 			
 			_NativeControl->render(dstData, (unsigned int)dstPitch);
-
+			
 			pixelBuffer->unlock();
 		}
 
-		void FlashControl::createOverlay(unsigned int width,unsigned int height,unsigned short zOrder,unsigned short zTier)
+		void FlashControl::createOverlay(unsigned int width,unsigned int height,unsigned short zOrder,unsigned short zTier, bool IsTransparent)
 		{
 			if(_HasOverlay)
 			{
@@ -190,9 +191,12 @@ namespace Makarui
 			_Tier = zTier;
 			_zOrder = zOrder;
 
+			Mogre::PixelFormat texturePF = (IsTransparent)? Mogre::PixelFormat::PF_BYTE_BGRA : Mogre::PixelFormat::PF_BYTE_BGR;
+
 			_WebTexture = Mogre::TextureManager::Singleton->CreateManual(_TextureName,Mogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-				Mogre::TextureType::TEX_TYPE_2D,_texWidth,_texHeight,0, Mogre::PixelFormat::PF_BYTE_BGRA,(int)Mogre::TextureUsage::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE);
+				Mogre::TextureType::TEX_TYPE_2D,_texWidth,_texHeight,0, texturePF,(int)Mogre::TextureUsage::TU_DYNAMIC_WRITE_ONLY_DISCARDABLE);
 					
+
 				Ogre::TexturePtr nativeTexPtr = (Ogre::TexturePtr)_WebTexture;
 
 				Ogre::HardwarePixelBufferSharedPtr pixelBuffer = nativeTexPtr->getBuffer();
@@ -259,7 +263,7 @@ namespace Makarui
 			float height = _Panel->Height;
 			this->Destroy();
 			_NativeControl->setTranparent(bMakeTransparent);
-			this->createOverlay((unsigned int)width,(unsigned int)height,_zOrder,_Tier);
+			this->createOverlay((unsigned int)width,(unsigned int)height,_zOrder,_Tier, bMakeTransparent);
 			_IsDestroyed = false;
 			
 		}
