@@ -160,7 +160,7 @@ namespace Makarui
 
 		for each(KeyValuePair<System::String^,FlashControl^> KVFlash in _ControlDictionary)
 		{
-			if(KVFlash.Value->HasOverlay)
+			if(KVFlash.Value->HasOverlay && KVFlash.Value->Visible)
 				KVFlash.Value->InjectMouseMove(KVFlash.Value->GetRelativeX(X),KVFlash.Value->GetRelativeY(Y));
 
 			if(!eventHandled)
