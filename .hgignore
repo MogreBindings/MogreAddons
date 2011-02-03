@@ -1,0 +1,14 @@
+glob:MOIS/ConsoleTest/obj/
+glob:MOIS/MOIS/CodeGen/AutoWrap/*.suo
+glob:MOIS/MOIS/CodeGen/AutoWrap/bin/
+glob:MOIS/MOIS/CodeGen/cpp2java/build/
+glob:MOIS/MOIS/Debug/
+glob:MOIS/MOIS/Release/
+glob:MOIS/MOIS/bin/Debug/
+glob:MOIS/MOIS/bin/Release/
+glob:MOIS/MOIS/*.sdf
+glob:MOIS/MOIS/*.suo
+glob:MOIS/MOIS/*.user
+glob:MOIS/ois/Win32/*.user
+glob:MOIS/ois/lib/
+glob:MOIS/MOIS/CodeGen/AutoWrap/obj/
