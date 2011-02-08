@@ -165,7 +165,7 @@ namespace Makarui
 		for each(KeyValuePair<System::String^,FlashControl^> KVFlash in _ControlDictionary)
 		{
 			if(KVFlash.Value->HasOverlay && KVFlash.Value->Visible && !KVFlash.Value->NoEvent)
-				KVFlash.Value->InjectMouseMove(KVFlash.Value->GetRelativeX(X),KVFlash.Value->GetRelativeY(Y));
+				KVFlash.Value->InjectMouseMove(X, Y);
 
 			if(!eventHandled)
 				if(KVFlash.Value->IsPointOverMe(X,Y))
@@ -181,10 +181,7 @@ namespace Makarui
 		{
 			if(FocusControl(arg->state.X.abs,arg->state.Y.abs,nullptr))
 			{
-				int relX = _FocusedControl->GetRelativeX(arg->state.X.abs);
-				int relY = _FocusedControl->GetRelativeY(arg->state.Y.abs);
-
-				_FocusedControl->InjectMouseDown(relX,relY);
+				_FocusedControl->InjectMouseDown(arg->state.X.abs,arg->state.Y.abs);
 			}
 		}
 		else if(ID == MOIS::MouseButtonID::MB_Right)
@@ -207,7 +204,7 @@ namespace Makarui
 		if(ID == MOIS::MouseButtonID::MB_Left)
 		{
 			if(_FocusedControl->HasOverlay)
-				_FocusedControl->InjectMouseUp(_FocusedControl->GetRelativeX(arg->state.X.abs),_FocusedControl->GetRelativeY(arg->state.Y.abs));
+				_FocusedControl->InjectMouseUp(arg->state.X.abs,arg->state.Y.abs);
 		}
 		else if(ID ==  MOIS::MouseButtonID::MB_Right)
 		{

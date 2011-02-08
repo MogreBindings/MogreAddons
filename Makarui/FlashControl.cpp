@@ -349,7 +349,7 @@ namespace Makarui
 
 		void FlashControl::SetTopLeft()
 		{
-			_NativeControl->SetTopLeft((unsigned int)_Panel->Top, (unsigned int)_Panel->Left);
+			_NativeControl->SetTopLeft((unsigned int)(_Viewport->ActualTop + _Panel->Top), (unsigned int)(_Viewport->ActualLeft +_Panel->Left));
 		}
 
 		void FlashControl::Hide()
@@ -380,16 +380,19 @@ namespace Makarui
 			_Panel->SetPosition(_Panel->Left+DeltaX, _Panel->Top+DeltaY);
 		}
 
+		//Coordinates MUST be in absolute position ! otherwise the flash plugin won't be able to track properly the mouse
 		void FlashControl::InjectMouseMove(int XPos, int YPos)
 		{
 			_NativeControl->injectMouseMove(XPos, YPos);
 		}
 
+		//Coordinates MUST be in absolute position ! otherwise the flash plugin won't be able to handle properly the mouse click
 		void FlashControl::InjectMouseDown(int XPos, int YPos)
 		{
 			_NativeControl->injectMouseDown(XPos, YPos);
 		}
 
+		//Coordinates MUST be in absolute position ! otherwise the flash plugin won't be able to handle properly the mouse up
 		void FlashControl::InjectMouseUp(int XPos, int YPos)
 		{
 			_NativeControl->injectMouseUp(XPos, YPos);
@@ -406,7 +409,7 @@ namespace Makarui
 			int viewHeight = _Viewport->ActualHeight;
 
 			int left = 0 + OffsetX;
-			int center = (viewWidth/2)-(_Width/2) + OffsetY;
+			int center = (viewWidth/2)-(_Width/2) + OffsetX;
 			int right = viewWidth - _Width + OffsetX;
 
 			int top = 0 + OffsetY;
