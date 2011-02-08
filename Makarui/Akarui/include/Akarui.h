@@ -38,7 +38,7 @@ public:
 
 	static AkaruiManager* getSingleton();
 
-	FlashMovie* createFlashMovie(const std::string& source, int width, int height, bool isTransparent, const FlashOptions& options);
+	FlashMovie* createFlashMovie(const std::string& source, int width, int height, bool isTransparent, const FlashOptions& options, Ogre::TexturePtr webTexture,int left, int top);
 
 	void destroyFlashMovie(FlashMovie* movie);
 

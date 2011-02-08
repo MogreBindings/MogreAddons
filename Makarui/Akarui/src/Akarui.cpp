@@ -49,9 +49,9 @@ AkaruiManager* AkaruiManager::getSingleton()
 	return instance;
 }
 
-FlashMovie* AkaruiManager::createFlashMovie(const std::string& source, int width, int height, bool isTransparent, const FlashOptions& options)
+FlashMovie* AkaruiManager::createFlashMovie(const std::string& source, int width, int height, bool isTransparent, const FlashOptions& options, Ogre::TexturePtr webTexture, int left, int top)
 {
-	FlashMovie* movie = new FlashMovie(baseDirectory + source, width, height, winHandle, isTransparent, options);
+	FlashMovie* movie = new FlashMovie(baseDirectory + source, width, height, winHandle, isTransparent, options, webTexture, left, top);
 	movies.push_back(movie);
 
 	return movie;

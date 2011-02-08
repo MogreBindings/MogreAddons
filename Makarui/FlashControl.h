@@ -49,10 +49,14 @@ namespace Makarui
 			unsigned int _texWidth;
 			unsigned int _texHeight;
 			Makarui::RelativePosition _RelPosition;
+			bool _NoEvent;
+			bool _NoMouseEvent;
 			
 
 		public protected:
-			FlashControl(Akarui::FlashMovie* ofFlashMovie,System::String^ pName,Mogre::Viewport^ pViewport);
+			FlashControl(System::String^ pName,Mogre::Viewport^ pViewport);
+
+			void SetNativeControl(Akarui::FlashMovie* ofFlashMovie);
 
 			~FlashControl();
 
@@ -70,6 +74,8 @@ namespace Makarui
 
 		public:
 
+			void SetTopLeft();
+
 			property bool ForceRedraw
 			{
 				bool get()
@@ -79,6 +85,18 @@ namespace Makarui
 				void set(bool value)
 				{
 					_ForceRedraw = value;
+				}
+			}
+
+			property bool NoEvent
+			{
+				bool get()
+				{
+					return _NoEvent;
+				}
+				void set(bool value)
+				{
+					_NoEvent = value;
 				}
 			}
 
@@ -142,6 +160,14 @@ namespace Makarui
 				}
 			}
 
+			property Mogre::OverlayElement^ Panel
+			{
+				Mogre::OverlayElement^  get()
+				{
+					return _Panel;
+				}
+			}
+
 			property System::String^ Name
 			{
 				System::String^ get()
@@ -155,6 +181,14 @@ namespace Makarui
 				System::String^ get()
 				{ 
 					return _MaterialName;
+				}
+			}
+
+			property Mogre::TexturePtr^ WebTexture
+			{
+				Mogre::TexturePtr^ get()
+				{
+					return _WebTexture;
 				}
 			}
 

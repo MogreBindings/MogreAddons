@@ -39,9 +39,10 @@ class FlashHandler;
 class _AkaruiExport FlashMovie
 {
 	PluginInstance* pluginInstance;
+	Ogre::TexturePtr _webTexture;
 	friend class AkaruiManager;
 
-	FlashMovie(const std::string& path, int width, int height, HWND winHandle, bool isTransparent, const FlashOptions& options);
+	FlashMovie(const std::string& path, int width, int height, HWND winHandle, bool isTransparent, const FlashOptions& options, Ogre::TexturePtr webTexture, int left, int top);
 	~FlashMovie();
 public:
 
@@ -53,7 +54,9 @@ public:
 
 	bool isDirty() const;
 
-	void render(unsigned char* destination, unsigned int destRowSpan);
+	void render();
+
+	void FlashMovie::SetTopLeft(int top, int left);
 
 	void setTranparent(bool isTransparent);
 

@@ -431,6 +431,10 @@ void NPN_Status(NPP id, const char* message)
 
 void NPN_InvalidateRect(NPP id, NPRect *invalidRect)
 {
+	#ifdef _DEBUG
+	//	printf("Invalidate a rect\n");
+	#endif
+
 	PluginInstance* plugin = getInstance(id);
 	if(plugin)
 		plugin->invalidateRect(*invalidRect);
@@ -438,6 +442,9 @@ void NPN_InvalidateRect(NPP id, NPRect *invalidRect)
 
 void NPN_InvalidateRegion(NPP id, NPRegion invalidRegion)
 {
+	#ifdef _DEBUG
+	//	printf("Invalidate a region");
+	#endif
 }
 
 void NPN_ForceRedraw(NPP id)

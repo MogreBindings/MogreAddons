@@ -47,7 +47,7 @@ class PluginInstance
 {
 	NPP_t* nppHandle;
 	NPRect dirtyRect;
-	int width, height;
+	int width, height, left, top;
 	HDC renderContext;
 	HBITMAP renderBitmap;
 	unsigned char *renderBuffer;
@@ -74,7 +74,7 @@ class PluginInstance
 	
 public:
 	
-	PluginInstance(int width, int height, const std::string& path, HWND win, bool isTransparent, unsigned short argc, char* argn[], char* argv[]);
+	PluginInstance(int width, int height, const std::string& path, HWND win, bool isTransparent, unsigned short argc, char* argn[], char* argv[], int left, int top);
 
 	~PluginInstance();
 
@@ -93,6 +93,8 @@ public:
 	bool isDirty() const;
 
 	void render(unsigned char* destination, int destRowspan);
+
+	void PluginInstance::setTopLeft(int top, int left);
 
 	void resize(int width, int height);
 

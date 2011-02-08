@@ -27,8 +27,9 @@
 
 using namespace std;
 using namespace Akarui;
+using namespace Ogre;
 
-FlashMovie::FlashMovie(const std::string& path, int width, int height, HWND winHandle, bool isTransparent, const FlashOptions& options)
+FlashMovie::FlashMovie(const std::string& path, int width, int height, HWND winHandle, bool isTransparent, const FlashOptions& options, Ogre::TexturePtr webTexture, int left, int top)
 {
 	int argc = 5;
 	char* argn[] = { "wmode" , "width", "height", "quality", "scale" };
@@ -37,6 +38,8 @@ FlashMovie::FlashMovie(const std::string& path, int width, int height, HWND winH
 	argv.push_back(isTransparent? "transparent" : "opaque");
 	argv.push_back((char*)numberToString(222).c_str());
 	argv.push_back((char*)numberToString(222).c_str());
+
+	this->_webTexture = webTexture;
 
 	switch(options.renderQuality)
 	{
@@ -69,7 +72,7 @@ FlashMovie::FlashMovie(const std::string& path, int width, int height, HWND winH
 	}
 
 
-	pluginInstance = new PluginInstance(width, height, path, winHandle, isTransparent, argc, argn, &argv[0]);
+	pluginInstance = new PluginInstance(width, height, path, winHandle, isTransparent, argc, argn, &argv[0], left, top);
 }
 
 FlashMovie::~FlashMovie()
@@ -97,14 +100,29 @@ bool FlashMovie::isDirty() const
 	return pluginInstance->isDirty();
 }
 
-void FlashMovie::render(unsigned char* destination, unsigned int destRowSpan)
+void FlashMovie::render()
 {
-	pluginInstance->render(destination, destRowSpan);
+	Ogre::HardwarePixelBufferSharedPtr pixelBuffer = this->_webTexture->getBuffer();
+	pixelBuffer->lock(Ogre::HardwareBuffer::HBL_DISCARD);
+	const Ogre::PixelBox& pixelBox = pixelBuffer->getCurrentLock();
+	size_t dstBpp = Ogre::PixelUtil::getNumElemBytes(pixelBox.format);
+	size_t dstPitch = pixelBox.rowPitch * dstBpp;
+
+	Ogre::uint8* dstData = static_cast<Ogre::uint8*>(pixelBox.data);
+	
+	pluginInstance->render(dstData, (unsigned int)dstPitch);
+
+	pixelBuffer->unlock();
 }
 
 void FlashMovie::setTranparent(bool isTransparent)
 {
 	pluginInstance->setTransparent(isTransparent);
+}
+
+void FlashMovie::SetTopLeft(int top, int left)
+{
+	pluginInstance->setTopLeft(top, left);
 }
 
 bool FlashMovie::injectMouseMove(int x, int y)

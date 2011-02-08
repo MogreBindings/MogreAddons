@@ -70,14 +70,11 @@ namespace Makarui
 			((Dictionary<System::String^,CallbackDelegate^>^)_ManagedDelegate)->Remove(MFuncName);
 		}
 
-		FlashControl::FlashControl(Akarui::FlashMovie* ofFlashMovie,System::String^ pName,Mogre::Viewport^ pViewport)
+		FlashControl::FlashControl(System::String^ pName,Mogre::Viewport^ pViewport)
 		{
-			_NativeControl = ofFlashMovie;
 			_Name = pName;
 			_TextureName = pName + "Texture";
 			_MaterialName = pName + "Material";
-			_NativeCallbackDelegate = new NativeCallbackDelegate();
-			_NativeControl->setHandler(_NativeCallbackDelegate);
 			_IsDestroyed = false;
 			_ForceRedraw = false;
 			_FirstFrame = true;
@@ -85,6 +82,14 @@ namespace Makarui
 			_Viewport = pViewport;
 			_Visible = true;
 			_RelPosition = Makarui::RelativePosition::TopLeft;
+			_NoEvent = false;
+		}
+
+		void FlashControl::SetNativeControl(Akarui::FlashMovie* ofFlashMovie)
+		{
+			_NativeControl = ofFlashMovie;
+			_NativeCallbackDelegate = new NativeCallbackDelegate();
+			_NativeControl->setHandler(_NativeCallbackDelegate);
 		}
 
 		FlashControl::~FlashControl()
@@ -142,20 +147,8 @@ namespace Makarui
 
 			_FirstFrame = false;
 
-			
-			Ogre::TexturePtr nativeTexPtr = (Ogre::TexturePtr)this->_WebTexture;
-			
-			Ogre::HardwarePixelBufferSharedPtr pixelBuffer = nativeTexPtr->getBuffer();
-			pixelBuffer->lock(Ogre::HardwareBuffer::HBL_DISCARD);
-			const Ogre::PixelBox& pixelBox = pixelBuffer->getCurrentLock();
-			size_t dstBpp = Ogre::PixelUtil::getNumElemBytes(pixelBox.format);
-			size_t dstPitch = pixelBox.rowPitch * dstBpp;
+			_NativeControl->render();
 
-			Ogre::uint8* dstData = static_cast<Ogre::uint8*>(pixelBox.data);
-			
-			_NativeControl->render(dstData, (unsigned int)dstPitch);
-			
-			pixelBuffer->unlock();
 		}
 
 		void FlashControl::createOverlay(unsigned int width,unsigned int height,unsigned short zOrder,unsigned short zTier, bool IsTransparent)
@@ -354,6 +347,11 @@ namespace Makarui
 		{
 		}
 
+		void FlashControl::SetTopLeft()
+		{
+			_NativeControl->SetTopLeft((unsigned int)_Panel->Top, (unsigned int)_Panel->Left);
+		}
+
 		void FlashControl::Hide()
 		{
 			if(_HasOverlay)
@@ -495,6 +493,9 @@ namespace Makarui
 
 		bool FlashControl::IsPointOverMe(int screenX, int screenY)
 		{
+			if(_NoEvent)
+				return false;
+
 			if(!_HasOverlay)
 				return false;
 

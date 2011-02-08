@@ -113,9 +113,13 @@ namespace Makarui
 		Akarui::FlashOptions argVal;
 		argVal.renderQuality = Utilities::ToUM_RenderQuality(sRenderQuality);
 		argVal.scaleMode = Utilities::ToUM_ScaleMode(sMode);
-		Akarui::FlashMovie* nativeCtrl = NativeManager->createFlashMovie(NativeCtrlName,Width,Height,IsTransparent,argVal);
-		FlashControl^ ManagedCtrl = gcnew FlashControl(nativeCtrl,Name,oViewport);
+
+		FlashControl^ ManagedCtrl = gcnew FlashControl(Name,oViewport);
 		ManagedCtrl->createOverlay(Width,Height,zOrder,zTier, IsTransparent);
+
+		Akarui::FlashMovie* nativeCtrl = NativeManager->createFlashMovie(NativeCtrlName,Width,Height,IsTransparent,argVal, (Ogre::TexturePtr)ManagedCtrl->WebTexture, (unsigned int)ManagedCtrl->Panel->Left, (unsigned int)ManagedCtrl->Panel->Top);
+
+		ManagedCtrl->SetNativeControl(nativeCtrl);
 
 		_ControlDictionary->Add(Name,ManagedCtrl);
 		return ManagedCtrl;
@@ -123,14 +127,14 @@ namespace Makarui
 
 	Makarui::FlashControl^	MakaruiManager::CreateFlashMaterial(System::String^ Name, int Width, int Height,bool IsTransparent)
 	{
-		Ogre::String NativeCtrlName;
+		/*Ogre::String NativeCtrlName;
 		Utilities::GetNativeString(NativeCtrlName,Name);
 	
 		Akarui::FlashMovie* nativeCtrl = NativeManager->createFlashMovie(NativeCtrlName,Width,Height,IsTransparent,Akarui::FlashOptions());
 		FlashControl^ ManagedCtrl = gcnew FlashControl(nativeCtrl,Name,nullptr);
 
-		_ControlDictionary->Add(Name,ManagedCtrl);
-		return ManagedCtrl;
+		_ControlDictionary->Add(Name,ManagedCtrl);*/
+		return nullptr;
 	}
 
 
@@ -160,7 +164,7 @@ namespace Makarui
 
 		for each(KeyValuePair<System::String^,FlashControl^> KVFlash in _ControlDictionary)
 		{
-			if(KVFlash.Value->HasOverlay && KVFlash.Value->Visible)
+			if(KVFlash.Value->HasOverlay && KVFlash.Value->Visible && !KVFlash.Value->NoEvent)
 				KVFlash.Value->InjectMouseMove(KVFlash.Value->GetRelativeX(X),KVFlash.Value->GetRelativeY(Y));
 
 			if(!eventHandled)

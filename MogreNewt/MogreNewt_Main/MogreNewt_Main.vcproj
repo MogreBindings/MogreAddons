@@ -42,10 +42,10 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/MP"
+				AdditionalOptions="/MP3"
 				Optimization="3"
-				AdditionalIncludeDirectories=".\inc;&quot;D:\devel\gamedevel\NewtonWin-2.20\sdk&quot;;C:\MogreSDK\includes;&quot;C:\Program Files (x86)\boost\boost_1_40&quot;"
-				AdditionalUsingDirectories="C:\MogreSDK\bin\Release"
+				AdditionalIncludeDirectories=".\inc;&quot;D:\devel\gamedevel\NewtonWin-2.25\sdk&quot;;D:\devel\gamedevel\MogreSDK\includes;&quot;C:\Program Files (x86)\boost\boost_1_40&quot;"
+				AdditionalUsingDirectories="D:\devel\gamedevel\MogreSDK\bin\Release"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_OGRENEWT_DYNAMIC;_OGRENEWT_EXPORTS"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -67,7 +67,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain.lib newton.lib"
-				AdditionalLibraryDirectories="C:\MogreSDK\lib;&quot;D:\devel\gamedevel\NewtonWin-2.20\sdk\x32\lib_vs9_md&quot;"
+				AdditionalLibraryDirectories="D:\devel\gamedevel\MogreSDK\Lib;&quot;D:\devel\gamedevel\NewtonWin-2.25\sdk\x32\lib_vs9_md&quot;"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -122,8 +122,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories=".\inc;&quot;D:\devel\gamedevel\NewtonWin-2.20\sdk&quot;;C:\MogreSDK\includes;&quot;C:\Program Files (x86)\boost\boost_1_40&quot;"
-				AdditionalUsingDirectories="C:\MogreSDK\bin\Debug"
+				AdditionalIncludeDirectories=".\inc;&quot;D:\devel\gamedevel\NewtonWin-2.25\sdk&quot;;D:\devel\gamedevel\MogreSDK\includes;&quot;C:\Program Files (x86)\boost\boost_1_40&quot;"
+				AdditionalUsingDirectories="D:\devel\gamedevel\MogreSDK\bin\Debug"
 				PreprocessorDefinitions="WIN32;_DEBUG;_OGRENEWT_DYNAMIC;"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="0"
@@ -146,7 +146,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="OgreMain_d.lib newton.lib"
 				OutputFile="$(OutDir)\$(ProjectName)_d.dll"
-				AdditionalLibraryDirectories="C:\MogreSDK\lib;&quot;D:\devel\gamedevel\NewtonWin-2.20\sdk\x32\lib_vs9_md&quot;"
+				AdditionalLibraryDirectories="D:\devel\gamedevel\MogreSDK\Lib;&quot;D:\devel\gamedevel\NewtonWin-2.25\sdk\x32\lib_vs9_md&quot;"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				RandomizedBaseAddress="1"

@@ -30,8 +30,8 @@ using namespace std;
 void destroyRenderContext(HDC& context, HBITMAP& bitmap);
 void createRenderContext(HWND winHandle, HDC &context, HBITMAP& bitmap, unsigned char* &buffer, int width, int height);
 
-PluginInstance::PluginInstance(int width, int height, const std::string& path, HWND win, bool isTransparent, unsigned short argc, char* argn[], char* argv[]) 
-	: width(width), height(height), path(path), dirtiness(false), winHandle(win), handler(0), lmbDown(false), transparency(isTransparent)
+PluginInstance::PluginInstance(int width, int height, const std::string& path, HWND win, bool isTransparent, unsigned short argc, char* argn[], char* argv[], int left, int top) 
+	: width(width), height(height), path(path), dirtiness(false), winHandle(win), handler(0), lmbDown(false), transparency(isTransparent), left(left), top(top)
 {
 	nppHandle = new NPP_t();
 	nppHandle->ndata = this;
@@ -138,7 +138,10 @@ bool PluginInstance::isDirty() const
 
 void PluginInstance::invalidateRect(const NPRect& rect)
 {
-	//printf("invalid: %d %d %d %d\n", rect.left, rect.top, rect.right, rect.bottom);
+	#ifdef _DEBUG
+	//	printf("invalid: %d %d %d %d\n", rect.left, rect.top, rect.right, rect.bottom);
+	#endif
+	
 	dirtiness = true;
 }
 
@@ -206,12 +209,20 @@ void PluginInstance::resize(int width, int height)
 	intermediateBuffer = new RenderBuffer(width, height);
 }
 
+void PluginInstance::setTopLeft(int top, int left)
+{
+	this->top = top;
+	this->left = left;
+
+	setWindow();
+}
+
 void PluginInstance::setWindow()
 {
 		WINDOWPOS win_pos = {0};
-		win_pos.x = 0;
-		win_pos.y = 0;
-		win_pos.cx = width;
+		win_pos.x = left;
+		win_pos.y = top;
+		win_pos.cx =  width;
 		win_pos.cy = height;
 
 		handleEvent(WM_WINDOWPOSCHANGED, 0, PtrToUlong(&win_pos));

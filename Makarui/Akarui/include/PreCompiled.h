@@ -11,6 +11,7 @@
 #include <vector>
 #include <windows.h>
 #include <cctype>
+#include "Ogre.h"
 
 namespace Akarui 
 {
