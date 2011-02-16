@@ -60,6 +60,7 @@ class PluginInstance
 	std::string path;
 	FlashHandler* handler;
 	bool lmbDown;
+	bool manualInvalidation;
 
 	RenderBuffer* intermediateBuffer;
 
@@ -91,6 +92,12 @@ public:
 	void setTransparent(bool transparency);
 
 	bool isDirty() const;
+
+	void setDirtiness(bool value);
+
+	bool getManualInvalidation() const;
+
+	void setManualInvalidation(bool value);
 
 	void render(unsigned char* destination, int destRowspan);
 

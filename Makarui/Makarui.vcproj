@@ -92,6 +92,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy /Y  &quot;$(TargetPath)&quot; &quot;D:\devel\gamedevel\MogreSDK\bin\$(ConfigurationName)&quot;"
 			/>
 		</Configuration>
 		<Configuration
@@ -167,6 +168,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy /Y  &quot;$(TargetPath)&quot; &quot;D:\devel\gamedevel\MogreSDK\bin\$(ConfigurationName)&quot;"
 			/>
 		</Configuration>
 	</Configurations>

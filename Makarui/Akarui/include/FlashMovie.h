@@ -54,6 +54,12 @@ public:
 
 	bool isDirty() const;
 
+	void setDirtiness(bool value);
+
+	bool getManualInvalidation() const;
+
+	void setManualInvalidation(bool value);
+
 	void render();
 
 	void FlashMovie::SetTopLeft(int top, int left);

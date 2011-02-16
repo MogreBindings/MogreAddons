@@ -8,9 +8,10 @@ namespace Ogre
 namespace Makarui
 {
 
-		NativeCallbackDelegate::NativeCallbackDelegate()
+		NativeCallbackDelegate::NativeCallbackDelegate(Akarui::FlashMovie* nativeControl)
 		{
 			_ManagedDelegate = gcnew Dictionary<System::String^,CallbackDelegate^>();
+			_NativeControl = nativeControl;
 		}
 
 		NativeCallbackDelegate::~NativeCallbackDelegate()
@@ -27,6 +28,18 @@ namespace Makarui
 
 				mFuncName = gcnew System::String(const_cast<char*>(funcName.c_str()));
 				array<System::Object^>^ mArgs = gcnew array<System::Object^>(args.size());
+
+				if(mFuncName == "isdirty")
+				{
+					_NativeControl->setDirtiness(true);
+					return Akarui::FlashValue();
+				}
+				else if(mFuncName == "isclean")
+				{
+					_NativeControl->setDirtiness(false);
+					return Akarui::FlashValue();
+				}
+
 
 				for (unsigned int i =0;i<args.size();i++)
 				{
@@ -88,7 +101,7 @@ namespace Makarui
 		void FlashControl::SetNativeControl(Akarui::FlashMovie* ofFlashMovie)
 		{
 			_NativeControl = ofFlashMovie;
-			_NativeCallbackDelegate = new NativeCallbackDelegate();
+			_NativeCallbackDelegate = new NativeCallbackDelegate(ofFlashMovie);
 			_NativeControl->setHandler(_NativeCallbackDelegate);
 		}
 
@@ -136,6 +149,9 @@ namespace Makarui
 		}
 
 
+		int iFrame = 0;
+		const int FRAME_PER_INVALIDATION = 2;
+
 		void FlashControl::Draw()
 		{
 			// We force-render the first frame because Flash 10 doesn't notify 
@@ -145,9 +161,22 @@ namespace Makarui
 				if(!_NativeControl->isDirty() && !_ForceRedraw)
 					return;
 
-			_FirstFrame = false;
-
 			_NativeControl->render();
+
+			if(_NativeControl->getManualInvalidation() && !_FirstFrame)
+			{
+				iFrame++;
+
+				if(iFrame == FRAME_PER_INVALIDATION)
+				{
+					_NativeControl->setDirtiness(false);
+					iFrame = 0;
+				}
+			}
+
+			Console::WriteLine(DateTime::Now.ToString()+"Draw control "+_Name+" \n");
+
+			_FirstFrame = false;
 
 		}
 
@@ -282,6 +311,11 @@ namespace Makarui
 		{
 		}
 
+		void FlashControl::CallFunction(System::String^ FuncName)
+		{
+			this->CallFunction(FuncName, gcnew array<System::Object^>(0));
+		}
+
 		void FlashControl::CallFunction(System::String^ FuncName,array<System::Object^>^ Args)
 		{
 			Ogre::String NativefuncName;
@@ -323,6 +357,12 @@ namespace Makarui
 
 		void FlashControl::Bind(System::String^ FuncName,CallbackDelegate^ CallDelegate)
 		{
+			if(FuncName == "isdirty" || FuncName == "isclean")
+			{
+				Console::WriteLine("isdirty and isclean are reserved name, please use another function callback name");
+				return;
+			}
+
 			Ogre::String nativeFuncName;
 			Utilities::GetNativeString(nativeFuncName,FuncName);
 
@@ -451,6 +491,8 @@ namespace Makarui
 					_Panel->SetPosition(OffsetX, OffsetY);
 					break;
 			}
+
+			this->SetTopLeft();
 		}
 
 		void FlashControl::SetPosition(int AbsX,int AbsY)

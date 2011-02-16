@@ -100,6 +100,22 @@ bool FlashMovie::isDirty() const
 	return pluginInstance->isDirty();
 }
 
+void FlashMovie::setDirtiness(bool value)
+{
+	pluginInstance->setDirtiness(value);
+}
+
+
+bool FlashMovie::getManualInvalidation() const
+{
+	return pluginInstance->getManualInvalidation();
+}
+
+void FlashMovie::setManualInvalidation(bool value)
+{
+	pluginInstance->setManualInvalidation(value);
+}
+
 void FlashMovie::render()
 {
 	Ogre::HardwarePixelBufferSharedPtr pixelBuffer = this->_webTexture->getBuffer();

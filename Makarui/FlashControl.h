@@ -9,9 +9,10 @@ namespace Makarui
 	{
 		private:
 			gcroot<Dictionary<System::String^,CallbackDelegate^>^> _ManagedDelegate;
+			Akarui::FlashMovie* _NativeControl;
 
 		public:
-			NativeCallbackDelegate();
+			NativeCallbackDelegate(Akarui::FlashMovie* nativeControl);
 			~NativeCallbackDelegate();
 
 			FlashValue onFlashCall(const std::string& funcName, const FlashArguments& args);
@@ -97,6 +98,18 @@ namespace Makarui
 				void set(bool value)
 				{
 					_NoEvent = value;
+				}
+			}
+
+			property bool ManualInvalidation
+			{
+				bool get()
+				{
+					return _NativeControl->getManualInvalidation();
+				}
+				void set(bool value)
+				{
+					_NativeControl->setManualInvalidation(value);
 				}
 			}
 
@@ -224,6 +237,8 @@ namespace Makarui
 			void SetDraggable(bool IsDraggable);
 
 			void SetIgnoreTransparentPixels(bool ShouldIgnore, float Threshold);
+
+			void CallFunction(System::String^ FuncName);
 
 			void CallFunction(System::String^ FuncName,array<System::Object^>^ Args);
 

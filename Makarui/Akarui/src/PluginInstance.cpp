@@ -31,7 +31,7 @@ void destroyRenderContext(HDC& context, HBITMAP& bitmap);
 void createRenderContext(HWND winHandle, HDC &context, HBITMAP& bitmap, unsigned char* &buffer, int width, int height);
 
 PluginInstance::PluginInstance(int width, int height, const std::string& path, HWND win, bool isTransparent, unsigned short argc, char* argn[], char* argv[], int left, int top) 
-	: width(width), height(height), path(path), dirtiness(false), winHandle(win), handler(0), lmbDown(false), transparency(isTransparent), left(left), top(top)
+	: width(width), height(height), path(path), dirtiness(false), winHandle(win), handler(0), lmbDown(false), transparency(isTransparent), left(left), top(top), manualInvalidation(true)
 {
 	nppHandle = new NPP_t();
 	nppHandle->ndata = this;
@@ -136,13 +136,29 @@ bool PluginInstance::isDirty() const
 	return dirtiness;
 }
 
+void PluginInstance::setDirtiness(bool value)
+{
+	dirtiness = value;
+}
+
+bool PluginInstance::getManualInvalidation() const
+{
+	return manualInvalidation;
+}
+
+void PluginInstance::setManualInvalidation(bool value)
+{
+	manualInvalidation = value;
+}
+
 void PluginInstance::invalidateRect(const NPRect& rect)
 {
 	#ifdef _DEBUG
 	//	printf("invalid: %d %d %d %d\n", rect.left, rect.top, rect.right, rect.bottom);
 	#endif
-	
-	dirtiness = true;
+
+	if(!manualInvalidation)
+		dirtiness = true;
 }
 
 void PluginInstance::render(unsigned char* destination, int destRowspan)
@@ -193,8 +209,11 @@ void PluginInstance::render(unsigned char* destination, int destRowspan)
 
 	}
 
-	dirtiness = false;
+	if(!manualInvalidation)
+		dirtiness = false;
 }
+
+
 
 void PluginInstance::resize(int width, int height)
 {
