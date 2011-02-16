@@ -56,6 +56,10 @@ public:
 
 	void setDirtiness(bool value);
 
+	bool isContinuousDirty() const;
+
+	void setDirtiness(bool value, bool continuous);
+
 	bool getManualInvalidation() const;
 
 	void setManualInvalidation(bool value);

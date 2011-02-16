@@ -29,7 +29,7 @@ namespace Makarui
 				mFuncName = gcnew System::String(const_cast<char*>(funcName.c_str()));
 				array<System::Object^>^ mArgs = gcnew array<System::Object^>(args.size());
 
-				if(mFuncName == "isdirty")
+				if(mFuncName == "isdirty" && !_NativeControl->isContinuousDirty())
 				{
 					_NativeControl->setDirtiness(true);
 					return Akarui::FlashValue();
@@ -37,6 +37,11 @@ namespace Makarui
 				else if(mFuncName == "isclean")
 				{
 					_NativeControl->setDirtiness(false);
+					return Akarui::FlashValue();
+				}
+				else if(mFuncName == "iscontinuousdirty")
+				{
+					_NativeControl->setDirtiness(true, true);
 					return Akarui::FlashValue();
 				}
 
@@ -165,12 +170,15 @@ namespace Makarui
 
 			if(_NativeControl->getManualInvalidation() && !_FirstFrame)
 			{
-				iFrame++;
-
-				if(iFrame == FRAME_PER_INVALIDATION)
+				if(!_NativeControl->isContinuousDirty())
 				{
-					_NativeControl->setDirtiness(false);
-					iFrame = 0;
+					iFrame++;
+
+					if(iFrame == FRAME_PER_INVALIDATION)
+					{
+						_NativeControl->setDirtiness(false);
+						iFrame = 0;
+					}
 				}
 			}
 

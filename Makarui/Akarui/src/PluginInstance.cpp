@@ -31,7 +31,7 @@ void destroyRenderContext(HDC& context, HBITMAP& bitmap);
 void createRenderContext(HWND winHandle, HDC &context, HBITMAP& bitmap, unsigned char* &buffer, int width, int height);
 
 PluginInstance::PluginInstance(int width, int height, const std::string& path, HWND win, bool isTransparent, unsigned short argc, char* argn[], char* argv[], int left, int top) 
-	: width(width), height(height), path(path), dirtiness(false), winHandle(win), handler(0), lmbDown(false), transparency(isTransparent), left(left), top(top), manualInvalidation(true)
+	: width(width), height(height), path(path), dirtiness(false), winHandle(win), handler(0), lmbDown(false), transparency(isTransparent), left(left), top(top), manualInvalidation(true), iscontinuousdirty(false)
 {
 	nppHandle = new NPP_t();
 	nppHandle->ndata = this;
@@ -136,9 +136,22 @@ bool PluginInstance::isDirty() const
 	return dirtiness;
 }
 
+bool PluginInstance::isContinuousDirty() const
+{
+	return iscontinuousdirty;
+}
+
 void PluginInstance::setDirtiness(bool value)
 {
 	dirtiness = value;
+	iscontinuousdirty = false;
+}
+
+
+void PluginInstance::setDirtiness(bool value, bool continuous)
+{
+	dirtiness = value;
+	iscontinuousdirty = continuous;
 }
 
 bool PluginInstance::getManualInvalidation() const

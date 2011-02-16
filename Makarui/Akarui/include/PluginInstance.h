@@ -61,6 +61,7 @@ class PluginInstance
 	FlashHandler* handler;
 	bool lmbDown;
 	bool manualInvalidation;
+	bool iscontinuousdirty;
 
 	RenderBuffer* intermediateBuffer;
 
@@ -92,8 +93,12 @@ public:
 	void setTransparent(bool transparency);
 
 	bool isDirty() const;
+	
+	bool isContinuousDirty() const;
 
 	void setDirtiness(bool value);
+
+	void setDirtiness(bool value, bool continuous);
 
 	bool getManualInvalidation() const;
 

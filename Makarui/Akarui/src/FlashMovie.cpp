@@ -100,6 +100,16 @@ bool FlashMovie::isDirty() const
 	return pluginInstance->isDirty();
 }
 
+bool FlashMovie::isContinuousDirty() const
+{
+	return pluginInstance->isContinuousDirty();
+}
+
+void FlashMovie::setDirtiness(bool value, bool continuous)
+{
+	pluginInstance->setDirtiness(value, continuous);
+}
+
 void FlashMovie::setDirtiness(bool value)
 {
 	pluginInstance->setDirtiness(value);
