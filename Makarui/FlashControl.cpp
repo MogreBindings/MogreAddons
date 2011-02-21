@@ -155,7 +155,7 @@ namespace Makarui
 
 
 		int iFrame = 0;
-		const int FRAME_PER_INVALIDATION = 2;
+		int FRAME_PER_INVALIDATION = 1;
 
 		void FlashControl::Draw()
 		{
@@ -182,7 +182,9 @@ namespace Makarui
 				}
 			}
 
-			Console::WriteLine(DateTime::Now.ToString()+"Draw control "+_Name+" \n");
+			#if _DEBUG
+				Console::WriteLine(DateTime::Now.ToString()+"Draw control "+_Name+" \n");
+			#endif
 
 			_FirstFrame = false;
 

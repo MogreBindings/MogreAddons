@@ -230,6 +230,9 @@ namespace Makarui
 
 		for each(KeyValuePair<System::String^,FlashControl^> KVFlash in _ControlDictionary)
 		{
+			if(!KVFlash.Value->Visible)
+				continue;
+
 			if(!KVFlash.Value->IsPointOverMe(x,y))
 				continue;
 
