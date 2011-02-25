@@ -55,7 +55,7 @@ struct ScriptObject
 
 	bool evaluate(NPString *script, NPVariant *result);
 
-	void toXML(std::stringstream& stream) const;
+	void toXML(std::wstringstream& stream) const;
 };
 
 

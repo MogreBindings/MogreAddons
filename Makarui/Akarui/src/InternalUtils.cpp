@@ -25,53 +25,68 @@
 
 #include "InternalUtils.h"
 
-void variantToXML(const NPVariant& variant, std::stringstream& stream)
+wchar_t* utf8ToWChar(const char *utf8, size_t len) 
+{
+  wchar_t *value = new wchar_t[len + 1];
+  int r = MultiByteToWideChar(CP_UTF8,
+                              0,
+                              utf8,
+                              len,
+                              value,
+                              len + 1);
+  value[r] = 0; //MultiByteToWideChar claims to null-terminate, but doesn't
+  return value;
+}
+
+void variantToXML(const NPVariant& variant, std::wstringstream& stream)
 {
 	switch(variant.type)
 	{
 	case NPVariantType_Bool:
-		stream << variant.value.boolValue ? "<true/>" : "<false/>";
+		stream << variant.value.boolValue ? L"<true/>" : L"<false/>";
 		break;
 	case NPVariantType_Int32:
-		stream << "<number>" << variant.value.intValue << "</number>";
+		stream << L"<number>" << variant.value.intValue << L"</number>";
 		break;
 	case NPVariantType_Double:
-		stream << "<number>" << variant.value.doubleValue << "</number>";
+		stream << L"<number>" << variant.value.doubleValue << L"</number>";
 		break;
 	case NPVariantType_String:
-		stream << "<string>" << std::string(variant.value.stringValue.UTF8Characters, variant.value.stringValue.UTF8Length) << "</string>";
+		stream << L"<string>" << utf8ToWChar(variant.value.stringValue.UTF8Characters, variant.value.stringValue.UTF8Length) << L"</string>";
 		break;
 	case NPVariantType_Object:
 		if(variant.value.objectValue->_class != NPObjectWrapperClass)
-			stream << "<undefined/>";
+			stream << L"<undefined/>";
 		else
 			reinterpret_cast<const NPObjectWrapper*>(variant.value.objectValue)->scriptObject.toXML(stream);
 		break;
 	case NPVariantType_Void:
-		stream << "<undefined/>";
+		stream << L"<undefined/>";
 		break;
 	case NPVariantType_Null:
-		stream << "<null/>";
+		stream << L"<null/>";
 		break;
 	}
 }
 
-std::string translateFlashRequest(const NPVariant* args, int argCount)
+
+
+std::wstring translateFlashRequest(const NPVariant* args, int argCount)
 {
 	if(!argCount)
-		return "";
+		return L"";
 	else if(!NPVARIANT_IS_STRING(args[0]))
-		return "";
+		return L"";
 
-	std::stringstream stream;
+	std::wstringstream stream;
 
-	stream << "<invoke name=\"" << std::string(args[0].value.stringValue.UTF8Characters, 
-		args[0].value.stringValue.UTF8Length) << "\" returntype=\"javascript\"><arguments>";
+	stream << L"<invoke name=\"" << utf8ToWChar(args[0].value.stringValue.UTF8Characters, 
+		args[0].value.stringValue.UTF8Length) << L"\" returntype=\"javascript\"><arguments>";
 
 	for(int i = 1; i < argCount; i++)
 		variantToXML(args[i], stream);
 
-	stream << "</arguments></invoke>";
+	stream << L"</arguments></invoke>";
 
 	return stream.str();
 }
@@ -173,7 +188,7 @@ void FlashValueToNPVariant(const FlashValue& flashValue, NPVariant& result)
 	}
 	else if(flashValue.isString())
 	{
-		const std::string& val = flashValue.toString();
+		const std::wstring& val = flashValue.toString();
 		unsigned int len = (unsigned int)val.length();
 		char* buffer = reinterpret_cast<char*>(NPN_MemAlloc(len));
 		memcpy(buffer, val.c_str(), len);
@@ -222,20 +237,20 @@ void FlashValueObjectToNPVariant(const FlashValue::Object& flashValObject, NPVar
 	i = std::string::npos; \
 	return FLASH_UNDEFINED;
 
-bool parseJSCall(const std::string& src, std::string& funcName, FlashArguments& args)
+bool parseJSCall(const std::wstring& src, std::wstring& funcName, FlashArguments& args)
 {
 	if(!src.length())
 		return false;
 	else if(src[src.length() - 1] != ')')
 		return false;
 
-	std::string::size_type opParen = src.find('(');
+	std::wstring::size_type opParen = src.find('(');
 
 	if(opParen == std::string::npos)
 		return false;
 
 	funcName = src.substr(0, opParen);
-	std::string argsList = src.substr(opParen + 1, src.length() - opParen - 2);
+	std::wstring argsList = src.substr(opParen + 1, src.length() - opParen - 2);
 
 	std::string::size_type iter = 0;
 	while(iter < argsList.size())
@@ -252,7 +267,7 @@ bool parseJSCall(const std::string& src, std::string& funcName, FlashArguments& 
 	return true;
 }
 
-FlashValue parseValue(const std::string& src, std::string::size_type& i)
+FlashValue parseValue(const std::wstring& src, std::wstring::size_type& i)
 {
 	if(i >= src.size())
 		return FLASH_UNDEFINED;
@@ -283,9 +298,9 @@ FlashValue parseValue(const std::string& src, std::string::size_type& i)
 	}
 }
 
-FlashValue parseStringValue(const std::string& src, std::string::size_type& i)
+FlashValue parseStringValue(const std::wstring& src, std::wstring::size_type& i)
 {
-	std::string result;
+	std::wstring result;
 	i++;
 
 	while(true)
@@ -322,9 +337,9 @@ FlashValue parseStringValue(const std::string& src, std::string::size_type& i)
 	}
 }
 
-FlashValue parseNumberValue(const std::string& src, std::string::size_type& i)
+FlashValue parseNumberValue(const std::wstring& src, std::wstring::size_type& i)
 {
-	std::string result;
+	std::wstring result;
 	bool hasDecimalPt = false;
 
 	while(true)
@@ -367,7 +382,7 @@ FlashValue parseNumberValue(const std::string& src, std::string::size_type& i)
 	}
 }
 
-FlashValue parseArrayValue(const std::string& src, std::string::size_type& i)
+FlashValue parseArrayValue(const std::wstring& src, std::wstring::size_type& i)
 {
 	FlashValue::Array result;
 	i++;
@@ -395,14 +410,14 @@ FlashValue parseArrayValue(const std::string& src, std::string::size_type& i)
 
 		FlashValue val = parseValue(src, i);
 
-		if(i == std::string::npos)
+		if(i == std::wstring::npos)
 			return FLASH_UNDEFINED;
 
 		result.push_back(val);
 	}
 }
 
-FlashValue parseObjectValue(const std::string& src, std::string::size_type& i)
+FlashValue parseObjectValue(const std::wstring& src, std::wstring::size_type& i)
 {
 	FlashValue::Object result;
 	i += 2;
@@ -428,20 +443,20 @@ FlashValue parseObjectValue(const std::string& src, std::string::size_type& i)
 			return FlashValue(result);
 		}
 
-		std::string::size_type colonIdx = src.find(':', i);
+		std::wstring::size_type colonIdx = src.find(':', i);
 
-		if(colonIdx == std::string::npos)
+		if(colonIdx == std::wstring::npos)
 		{
 			PARSE_FAIL
 		}
 
-		std::string key = src.substr(i, colonIdx - i);
+		std::wstring key = src.substr(i, colonIdx - i);
 
 		i = colonIdx + 1;
 
 		FlashValue val = parseValue(src, i);
 
-		if(i == std::string::npos)
+		if(i == std::wstring::npos)
 			return FLASH_UNDEFINED;
 
 		result[key] = val;

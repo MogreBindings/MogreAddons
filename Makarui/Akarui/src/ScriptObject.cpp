@@ -118,23 +118,23 @@ bool ScriptObject::evaluate(NPString *script, NPVariant *result)
 	return methodHandler->handleEvaluation(script, result);
 }
 
-void ScriptObject::toXML(std::stringstream& stream) const
+void ScriptObject::toXML(std::wstringstream& stream) const
 {
-	stream << "<object>";
+	stream << L"<object>";
 	for(std::map<NPIdentifier, NPVariant*>::const_iterator i = properties->begin(); i != properties->end(); i++)
 	{
-		stream << "<property id=\"";
+		stream << L"<property id=\"";
 		if(NPN_IdentifierIsString(i->first))
 			stream << NPN_UTF8FromIdentifier(i->first);
 		else
 			stream << NPN_IntFromIdentifier(i->first);
-		stream << "\">";
+		stream << L"\">";
 
 		variantToXML(*(i->second), stream);
 
-		stream << "</property>";
+		stream << L"</property>";
 	}
-	stream << "</object>";
+	stream << L"</object>";
 }
 
 NPObject* NPObjectWrapper_Allocate(NPP npp, NPClass *aClass)

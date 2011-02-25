@@ -72,22 +72,22 @@ bool ScriptWindow::handleInvocation(NPIdentifier id, const NPVariant *args, int 
 		char* buffer = reinterpret_cast<char*>(NPN_MemAlloc(len));
 		memcpy(buffer, location.c_str(), len);
 
-		result->type = NPVariantType_String;
+		/*result->type = NPVariantType_String;
 		result->value.stringValue.UTF8Length = len;
-		result->value.stringValue.UTF8Characters = buffer;
+		result->value.stringValue.UTF8Characters = buffer;*/
 		return true;
 	}
 	else if(id == flashRequestID)
 	{
-		std::string request = translateFlashRequest(args, argCount);
+		std::wstring request = translateFlashRequest(args, argCount);
 
 		unsigned int len = (unsigned int)request.length();
-		char* buffer = reinterpret_cast<char*>(NPN_MemAlloc(len));
+		wchar_t* buffer = reinterpret_cast<wchar_t*>(NPN_MemAlloc(len));
 		memcpy(buffer, request.c_str(), len);
 
-		result->type = NPVariantType_String;
+		/*result->type = NPVariantType_String;
 		result->value.stringValue.UTF8Length = len;
-		result->value.stringValue.UTF8Characters = buffer;
+		result->value.stringValue.UTF8Characters = buffer;*/
 
 		#ifdef _DEBUG
 			printf("Flash Request: %s\n", request.c_str());
@@ -101,28 +101,28 @@ bool ScriptWindow::handleInvocation(NPIdentifier id, const NPVariant *args, int 
 
 bool ScriptWindow::handleEvaluation(NPString *script, NPVariant *result)
 {
-	std::string js;
-	js.assign(script->UTF8Characters, script->UTF8Length);
+	std::wstring js;
+	js = utf8ToWChar(script->UTF8Characters, script->UTF8Length);
 
-	if(js.substr(0, 8) == "function")
+	if(js.substr(0, 8) == L"function")
 	{
 		VOID_TO_NPVARIANT(*result);
 		return true;
 	}
-	else if(js.substr(0, 21) == "try { __flash__toXML(")
+	else if(js.substr(0, 21) == L"try { __flash__toXML(")
 	{
-		std::string::size_type suffix = js.find(") ; } catch", 21);
+		std::wstring::size_type suffix = js.find(L") ; } catch", 21);
 
-		if(suffix == std::string::npos)
+		if(suffix == std::wstring::npos)
 			return false;
 
-		std::string call = js.substr(21, suffix - 21);
+		std::wstring call = js.substr(21, suffix - 21);
 
 		#ifdef _DEBUG
 			printf("JS Call: %s\n", call.c_str());
 		#endif
 
-		std::string funcName;
+		std::wstring funcName;
 		FlashArguments args;
 
 		if(parseJSCall(call, funcName, args))
@@ -130,17 +130,17 @@ bool ScriptWindow::handleEvaluation(NPString *script, NPVariant *result)
 			FlashValue flashValueResult = owner->handleFlashCall(funcName, args);
 			NPVariant variantResult;
 			FlashValueToNPVariant(flashValueResult, variantResult);
-			std::stringstream stream;
+			std::wstringstream stream;
 			variantToXML(variantResult, stream);
 			NPN_ReleaseVariantValue(&variantResult);
 
-			unsigned int len = (unsigned int)stream.str().length();
-			char* buffer = reinterpret_cast<char*>(NPN_MemAlloc(len));
+			/*unsigned int len = (unsigned int)stream.str().length();
+			wchar_t* buffer = reinterpret_cast<wchar_t*>(NPN_MemAlloc(len));
 			memcpy(buffer, stream.str().c_str(), len);
 
 			result->type = NPVariantType_String;
 			result->value.stringValue.UTF8Length = len;
-			result->value.stringValue.UTF8Characters = buffer;
+			result->value.stringValue.UTF8Characters = buffer;*/
 		}
 		else
 		{

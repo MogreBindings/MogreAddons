@@ -334,7 +334,7 @@ std::string PluginInstance::getLocation()
 	return scriptWindow->getLocation();
 }
 
-FlashValue PluginInstance::handleFlashCall(const std::string& funcName, const FlashArguments& args)
+FlashValue PluginInstance::handleFlashCall(const std::wstring& funcName, const FlashArguments& args)
 {
 	if(handler)
 		return handler->onFlashCall(funcName, args);

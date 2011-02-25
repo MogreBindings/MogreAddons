@@ -30,9 +30,11 @@
 
 using namespace Akarui;
 
-void variantToXML(const NPVariant& variant, std::stringstream& stream);
+wchar_t* utf8ToWChar(const char *utf8, size_t len);
 
-std::string translateFlashRequest(const NPVariant* args, int argCount);
+void variantToXML(const NPVariant& variant, std::wstringstream& stream);
+
+std::wstring translateFlashRequest(const NPVariant* args, int argCount);
 
 void copyNPVariant(const NPVariant* source, NPVariant* destination);
 
@@ -46,12 +48,12 @@ void FlashValueToNPVariant(const FlashValue& flashValue, NPVariant& result);
 FlashValue NPVariantToFlashValue(const NPVariant& npVariant);
 
 template<class NumberType>
-inline NumberType stringToNumber(const std::string& numberString)
+inline NumberType stringToNumber(const std::wstring& numberString)
 {
-	if(numberString.substr(0, 4).compare("true") == 0) return 1;
-	else if(numberString.substr(0, 4).compare("false") == 0) return 0;
+	if(numberString.substr(0, 4).compare(L"true") == 0) return 1;
+	else if(numberString.substr(0, 4).compare(L"false") == 0) return 0;
 
-	std::istringstream converter(numberString);
+	std::wistringstream converter(numberString);
 	
 	if(typeid(NumberType)==typeid(bool))
 	{
@@ -64,23 +66,23 @@ inline NumberType stringToNumber(const std::string& numberString)
 }
 
 template<class NumberType>
-inline std::string numberToString(const NumberType &number)
+inline std::wstring numberToString(const NumberType &number)
 {
-	std::ostringstream converter;
+	std::wostringstream converter;
 
 	if(typeid(NumberType)==typeid(bool))
 	{
-		return number ? "true" : "false";
+		return number ? L"true" : L"false";
 	}
 
-	return (converter << number).fail() ? "" : converter.str();
+	return (converter << number).fail() ? L"" : const_cast<wchar_t*>(converter.str().c_str());
 }
 
-bool parseJSCall(const std::string& src, std::string& funcName, FlashArguments& args);
-FlashValue parseValue(const std::string& src, std::string::size_type& i);
-FlashValue parseStringValue(const std::string& src, std::string::size_type& i);
-FlashValue parseNumberValue(const std::string& src, std::string::size_type& i);
-FlashValue parseArrayValue(const std::string& src, std::string::size_type& i);
-FlashValue parseObjectValue(const std::string& src, std::string::size_type& i);
+bool parseJSCall(const std::wstring& src, std::wstring& funcName, FlashArguments& args);
+FlashValue parseValue(const std::wstring& src, std::wstring::size_type& i);
+FlashValue parseStringValue(const std::wstring& src, std::wstring::size_type& i);
+FlashValue parseNumberValue(const std::wstring& src, std::wstring::size_type& i);
+FlashValue parseArrayValue(const std::wstring& src, std::wstring::size_type& i);
+FlashValue parseObjectValue(const std::wstring& src, std::wstring::size_type& i);
 
 #endif

@@ -39,6 +39,7 @@ struct _AkaruiExport FlashIdentifier
 	FlashIdentifier(int id);
 	FlashIdentifier(const char* id);
 	FlashIdentifier(const std::string& id);
+	FlashIdentifier(const std::wstring& id);
 
 	bool operator<(const FlashIdentifier& rhs) const;
 	bool operator==(const FlashIdentifier& rhs) const;
@@ -63,8 +64,8 @@ public:
 	FlashValue(bool value);
 	FlashValue(int value);
 	FlashValue(double value);
-	FlashValue(const char* value);
-	FlashValue(const std::string& value);
+	FlashValue(const wchar_t* value);
+	FlashValue(const std::wstring& value);
 	FlashValue(const Object& value);
 	FlashValue(const Array& value);
 	FlashValue(const FlashValue& original);
@@ -81,7 +82,7 @@ public:
 	bool isNull() const;
 	bool isUndefined() const;
 
-	std::string toString() const;
+	std::wstring toString() const;
 	int toInteger() const;
 	double toDouble() const;
 	bool toBoolean() const;

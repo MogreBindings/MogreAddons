@@ -46,7 +46,7 @@ struct FlashVariant
 		bool booleanValue;
 		int integerValue;
 		double doubleValue;
-		std::string* stringValue;
+		std::wstring* stringValue;
 		FlashValue::Array* arrayValue;
 		FlashValue::Object* objectValue;
 	} value;
@@ -68,7 +68,7 @@ struct FlashVariant
 		type = source.type;
 
 		if(type == FVT_STRING)
-			value.stringValue = new std::string(*source.value.stringValue);
+			value.stringValue = new std::wstring(*source.value.stringValue);
 		else if(type == FVT_ARRAY)
 			value.arrayValue = new FlashValue::Array(*source.value.arrayValue);
 		else if(type == FVT_OBJECT)
@@ -95,6 +95,11 @@ FlashIdentifier::FlashIdentifier(const char* id)
 FlashIdentifier::FlashIdentifier(const std::string& id)
 {
 	npIdentifier = NPN_GetStringIdentifier(id.c_str());
+}
+
+FlashIdentifier::FlashIdentifier(const std::wstring& id)
+{
+	npIdentifier = NPN_GetStringIdentifier(reinterpret_cast<const char*>(id.c_str()));
 }
 
 bool FlashIdentifier::operator<(const FlashIdentifier& rhs) const
@@ -143,18 +148,18 @@ FlashValue::FlashValue(double value)
 	variant->value.doubleValue = value;
 }
 
-FlashValue::FlashValue(const char* value)
+FlashValue::FlashValue(const wchar_t* value)
 {
 	variant = new Impl::FlashVariant();
 	variant->type = FVT_STRING;
-	variant->value.stringValue = new std::string(value);
+	variant->value.stringValue = new std::wstring(value);
 }
 
-FlashValue::FlashValue(const std::string& value)
+FlashValue::FlashValue(const std::wstring& value)
 {
 	variant = new Impl::FlashVariant();
 	variant->type = FVT_STRING;
-	variant->value.stringValue = new std::string(value);
+	variant->value.stringValue = new std::wstring(value);
 }
 
 FlashValue::FlashValue(const Object& value)
@@ -236,7 +241,7 @@ bool FlashValue::isUndefined() const
 	return variant->type == FVT_UNDEFINED;
 }
 
-std::string FlashValue::toString() const
+std::wstring FlashValue::toString() const
 {
 	if(isString())
 		return *variant->value.stringValue;
@@ -247,13 +252,13 @@ std::string FlashValue::toString() const
 	else if(isBoolean())
 		return numberToString<bool>(variant->value.booleanValue);
 	else if(isArray())
-		return "[array]";
+		return L"[array]";
 	else if(isObject())
-		return "[object]";
+		return L"[object]";
 	else if(isNull())
-		return "null";
+		return L"null";
 	else
-		return "undefined";
+		return L"undefined";
 }
 
 int FlashValue::toInteger() const

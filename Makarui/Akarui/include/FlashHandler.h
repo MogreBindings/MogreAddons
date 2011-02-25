@@ -34,7 +34,7 @@ class _AkaruiExport FlashHandler
 {
 public:
 	virtual ~FlashHandler() {}
-	virtual FlashValue onFlashCall(const std::string& funcName, const FlashArguments& args) = 0;
+	virtual FlashValue onFlashCall(const std::wstring& funcName, const FlashArguments& args) = 0;
 };
 
 }

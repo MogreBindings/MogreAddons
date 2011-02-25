@@ -20,13 +20,13 @@ namespace Makarui
 			delete _ManagedDelegate;
 	    }
 
-		FlashValue NativeCallbackDelegate::onFlashCall(const std::string& funcName, const FlashArguments& args)
+		FlashValue NativeCallbackDelegate::onFlashCall(const std::wstring& funcName, const FlashArguments& args)
 		{
 			try
 			{
 				System::String^ mFuncName;
 
-				mFuncName = gcnew System::String(const_cast<char*>(funcName.c_str()));
+				mFuncName = gcnew System::String(const_cast<wchar_t*>(funcName.c_str()));
 				array<System::Object^>^ mArgs = gcnew array<System::Object^>(args.size());
 
 				if(mFuncName == "isdirty" && !_NativeControl->isContinuousDirty())
@@ -59,7 +59,7 @@ namespace Makarui
 					else if(fVal.isDouble())
 						mArgs[i] = fVal.toDouble();
 					else if(fVal.isString())
-						mArgs[i] =  gcnew System::String(const_cast<char*>(fVal.toString().c_str()));
+						mArgs[i] =  gcnew System::String(const_cast<wchar_t*>(fVal.toString().c_str()));
 				}
 
 				if(((Dictionary<System::String^,CallbackDelegate^>^)_ManagedDelegate)->ContainsKey(mFuncName))

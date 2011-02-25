@@ -69,7 +69,7 @@ class PluginInstance
 	void updateGeometry();
 	void loadFile();
 	void invalidateRect(const NPRect& rect);
-	FlashValue handleFlashCall(const std::string& funcName, const FlashArguments& args);
+	FlashValue handleFlashCall(const std::wstring& funcName, const FlashArguments& args);
 
 	friend class PluginHost;
 	friend class ScriptWindow;

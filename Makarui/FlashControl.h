@@ -15,7 +15,7 @@ namespace Makarui
 			NativeCallbackDelegate(Akarui::FlashMovie* nativeControl);
 			~NativeCallbackDelegate();
 
-			FlashValue onFlashCall(const std::string& funcName, const FlashArguments& args);
+			FlashValue onFlashCall(const std::wstring& funcName, const FlashArguments& args);
 
 			void AddFunctionDelegate(Ogre::String funcName, CallbackDelegate^ pDel);
 
