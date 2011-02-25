@@ -59,7 +59,7 @@ namespace Makarui
 					else if(fVal.isDouble())
 						mArgs[i] = fVal.toDouble();
 					else if(fVal.isString())
-						mArgs[i] =  gcnew System::String(const_cast<char*>(fVal.toString().c_str()));
+						mArgs[i] =  gcnew System::String(Utilities::utf8ToWChar(fVal.toString().c_str(),fVal.toString().size()));
 				}
 
 				if(((Dictionary<System::String^,CallbackDelegate^>^)_ManagedDelegate)->ContainsKey(mFuncName))

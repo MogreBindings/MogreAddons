@@ -69,5 +69,6 @@ namespace Makarui
 			static void GetNativeString(Ogre::String& UnmanagedString,System::String^ ManagedString);
 			static void GetNativeUnicodeString(Ogre::DisplayString& UnmanagedString,System::String^ ManagedString);
 			static Mogre::ColourValue GetNumberAsColor(float ColorVal);
+			static wchar_t* utf8ToWChar(const char *utf8, size_t len) ;
 	};
 }

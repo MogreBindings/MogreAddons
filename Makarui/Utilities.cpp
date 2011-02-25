@@ -57,4 +57,17 @@ namespace Makarui
 		UnmanagedString = static_cast<wchar_t*>(str.ToPointer());
 		Marshal::FreeHGlobal( str );
 	}
+
+	wchar_t* Utilities::utf8ToWChar(const char *utf8, size_t len) 
+	{
+	  wchar_t *value = new wchar_t[len + 1];
+	  int r = MultiByteToWideChar(CP_UTF8,
+								  0,
+								  utf8,
+								  len,
+								 value,
+								  len + 1);
+	  value[r] = 0; //MultiByteToWideChar claims to null-terminate, but doesn't
+	  return value;
+	}
 }
