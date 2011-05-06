@@ -60,46 +60,46 @@ namespace FSLOgreCS
         };
 
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslInit@@YA_NW4FSL_SOUND_SYSTEM@@@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslInit@@YA_NW4FSL_SOUND_SYSTEM@@@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern bool fslInit(FSL_SOUND_SYSTEM val);
 
         /// <summary>
         /// Gets the current memory usage of all non-streaming sounds. This method does not seem to work properly.
         /// </summary>
         /// <returns></returns>
-        [DllImport("FreeSL.dll", EntryPoint = "?fslGetSoundMemoryUsage@@YAKXZ")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslGetSoundMemoryUsage@@YAKXZ", CallingConvention=CallingConvention.Cdecl)]
         public static extern ulong fslGetSoundMemoryUsage();
 
         /// <summary>
         /// Pauses all sounds currently playing.
         /// </summary>
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundPauseAllSounds@@YAXXZ")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundPauseAllSounds@@YAXXZ", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSoundPauseAllSounds();
 
         /// <summary>
         /// Unpauses all sounds currently paused.
         /// </summary>
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundUnPauseAllSounds@@YAXXZ")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundUnPauseAllSounds@@YAXXZ", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSoundUnPauseAllSounds();
 
         /// <summary>
         /// Stops all sounds currently playing.
         /// </summary>
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundStopAllSounds@@YAXXZ")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundStopAllSounds@@YAXXZ", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSoundStopAllSounds();
 
         /// <summary>
         /// Sets the speed of all sounds.
         /// </summary>
         /// <param name="pitch">Speed between 0 and 1 at which to play the sound.</param>
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetPitchAllSounds@@YAXM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetPitchAllSounds@@YAXM@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSoundSetSpeedAllSounds(float pitch);
 
         /// <summary>
         /// Sets the gain of all sounds.
         /// </summary>
         /// <param name="gain">Positive or negative gain to apply to all sounds.</param>
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetGainAllSounds@@YAXM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetGainAllSounds@@YAXM@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSoundSetGainAllSounds(float gain);
 
         /// <summary>
@@ -107,95 +107,95 @@ namespace FSLOgreCS
         /// </summary>
         /// <param name="factor">Factor by which to scale the Doppler effect. 0 = off, 1 = normal.</param>
         /// <param name="velocity">A leftover input variable from OpenAL 1.0. Default value is 1.</param>
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSetDopplerParameters@@YAXMM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetDopplerParameters@@YAXMM@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSetDopplerParameters(float factor, float velocity);
 
         /// <summary>
         /// Sets speed of sound for use by the doppler effect.
         /// </summary>
         /// <param name="val">Speed of sound to assign. The default value is 343.3.</param>
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSetSpeedOfSound@@YAXM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetSpeedOfSound@@YAXM@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSetSpeedOfSound(float val);
 
         /// <summary>
         /// Sets the distance-based sound attenuation model. Controls how the gain of sound sources is affected by distance from the listener.
         /// </summary>
         /// <param name="model">Model to apply as the distance sound attenuation model. The default attenuation model is AL_INVERSE_DISTANCE_CLAMPED.</param>
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerDistanceModel@@YAXI@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerDistanceModel@@YAXI@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSetListenerDistanceModel(AL_DISTANCE_MODEL model);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslShutDown@@YAXXZ")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslShutDown@@YAXXZ", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslShutDown();
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSetVolume@@YAXM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetVolume@@YAXM@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSetVolume(float gain_mult);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslFreeSound@@YAXI_N@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslFreeSound@@YAXI_N@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslFreeSound(uint obj, bool remove_buffer);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslLoadSound@@YAIPBD@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslLoadSound@@YAIPBD@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern uint fslLoadSound(string strFile);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslStreamSound@@YAIPBD@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslStreamSound@@YAIPBD@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern uint fslStreamSound(string strFile);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslLoadSoundFromZip@@YAIPBD0@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslLoadSoundFromZip@@YAIPBD0@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern uint fslLoadSoundFromZip(string strPackage, string strFile);
         
         /// <summary>
         /// Enables or disables AutoUpdate, which allows streaming to work.
         /// </summary>
         /// <param name="auto">Whether to use AutoUpdate.</param>
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSetAutoUpdate@@YAX_N@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetAutoUpdate@@YAX_N@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSetAutoUpdate(bool auto);
         
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundPlay@@YAXI@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundPlay@@YAXI@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSoundPlay(uint obj);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundRewind@@YAXI@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundRewind@@YAXI@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSoundRewind(uint obj);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundStop@@YAXI@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundStop@@YAXI@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSoundStop(uint obj);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundPause@@YAXI@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundPause@@YAXI@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSoundPause(uint obj);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsPlaying@@YA_NI@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsPlaying@@YA_NI@Z", CallingConvention=CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.U1)]
         internal static extern bool fslSoundIsPlaying(uint obj);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsPaused@@YA_NI@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsPaused@@YA_NI@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern bool fslSoundIsPaused(uint obj);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetLooping@@YAXI_N@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetLooping@@YAXI_N@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSoundSetLooping(uint obj, bool loop_sound);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsLooping@@YA_NI@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundIsLooping@@YA_NI@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern bool fslSoundIsLooping(uint obj);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetPitch@@YAXIM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetPitch@@YAXIM@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSoundSetSpeed(uint obj, float pitch);
         
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetGain@@YAXIM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetGain@@YAXIM@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSoundSetGain(uint obj, float gain);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetSourceRelative@@YAXI_N@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetSourceRelative@@YAXI_N@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSoundSetSourceRelative(uint obj, bool is_relative);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerPosition@@YAXMMM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerPosition@@YAXMMM@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSetListenerPosition(float x, float y, float z);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerOrientation@@YAXMMMMMM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerOrientation@@YAXMMMMMM@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSetListenerOrientation(float atx, float aty, float atz, float upx, float upy, float upz);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetPosition@@YAXIMMM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetPosition@@YAXIMMM@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSoundSetPosition(uint obj, float x, float y, float z);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetMaxDistance@@YAXIM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetMaxDistance@@YAXIM@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSoundSetMaxDistance(uint obj, float max_distance);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetReferenceDistance@@YAXIM@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSoundSetReferenceDistance@@YAXIM@Z", CallingConvention=CallingConvention.Cdecl)]
         internal static extern void fslSoundSetReferenceDistance(uint obj, float ref_distance);
 
 
@@ -252,25 +252,25 @@ namespace FSLOgreCS
             public ulong dwFlags;			// modifies the behavior of properties
         };
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerEnvironment@@YAXPAUFSL_EAX_LISTENER_PROPERTIES@@@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerEnvironment@@YAXPAUFSL_EAX_LISTENER_PROPERTIES@@@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSetListenerEnvironment(FSL_EAX_LISTENER_PROPERTIES lpData);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerEnvironmentPreset@@YAXW4FSL_LISTENER_ENVIRONMENT@@@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerEnvironmentPreset@@YAXW4FSL_LISTENER_ENVIRONMENT@@@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSetListenerEnvironmentPreset(FSL_LISTENER_ENVIRONMENT type);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerDefaultEnvironment@@YAXXZ")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslSetListenerDefaultEnvironment@@YAXXZ", CallingConvention=CallingConvention.Cdecl)]
         public static extern void fslSetListenerDefaultEnvironment();
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslGetCurrentListenerEnvironment@@YA?AUFSL_EAX_LISTENER_PROPERTIES@@XZ")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslGetCurrentListenerEnvironment@@YA?AUFSL_EAX_LISTENER_PROPERTIES@@XZ", CallingConvention=CallingConvention.Cdecl)]
         public static extern FSL_EAX_LISTENER_PROPERTIES fslGetCurrentListenerEnvironment();
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslLoadListenerEnvironment@@YA?AUFSL_EAX_LISTENER_PROPERTIES@@PBD@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslLoadListenerEnvironment@@YA?AUFSL_EAX_LISTENER_PROPERTIES@@PBD@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern FSL_EAX_LISTENER_PROPERTIES fslLoadListenerEnvironment(string strFile);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslLoadListenerEnvironmentFromZip@@YA?AUFSL_EAX_LISTENER_PROPERTIES@@PBD0@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslLoadListenerEnvironmentFromZip@@YA?AUFSL_EAX_LISTENER_PROPERTIES@@PBD0@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern FSL_EAX_LISTENER_PROPERTIES fslLoadListenerEnvironmentFromZip(string strPackage, string strFile);
 
-        [DllImport("FreeSL.dll", EntryPoint = "?fslCreateListenerEnvironment@@YA?AUFSL_EAX_LISTENER_PROPERTIES@@PBDI@Z")]
+        [DllImport("FreeSL.dll", EntryPoint = "?fslCreateListenerEnvironment@@YA?AUFSL_EAX_LISTENER_PROPERTIES@@PBDI@Z", CallingConvention=CallingConvention.Cdecl)]
         public static extern FSL_EAX_LISTENER_PROPERTIES fslCreateListenerEnvironment(string strData, uint size);
     }
 }
