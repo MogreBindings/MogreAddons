@@ -57,7 +57,11 @@ PluginHost::~PluginHost()
 void PluginHost::load()
 {
 	bindFunctions();
-	loadLibrary();
+
+	if(!loadLibrary())
+	{
+		printf("Error loading Flash plugin ! ");
+	}
 }
 
 void PluginHost::bindFunctions()

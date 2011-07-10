@@ -16,6 +16,12 @@ namespace Makarui
 
 	MakaruiManager::MakaruiManager(System::String^ AssetsDirectory,Mogre::RenderWindow^ oRenderWindow)
 	{
+		//before creating a manager, check if the flash plugin is available
+
+		if(!System::IO::File::Exists("NPSWF32.dll"))
+		{
+			throw gcnew System::Exception("Can't create a Makarui manager, NPSWF32.dll missing in the working directory");
+		}
 
 		_ControlDictionary = gcnew Dictionary<System::String^,FlashControl^>();
 
