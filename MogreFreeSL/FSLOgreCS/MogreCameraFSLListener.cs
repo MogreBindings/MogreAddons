@@ -43,7 +43,7 @@ namespace FSLOgreCS
         {
             get
             {
-                Mogre.Vector3 position = _renderable.Position;
+                Mogre.Vector3 position = _renderable.RealPosition;
                 return new FSLPosition(position.x, position.y, position.z);
             }
         }
