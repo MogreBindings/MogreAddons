@@ -1,0 +1,2 @@
+MogreFreeSL is licensed under LGPL: http://www.gnu.org/licenses/lgpl.html
+All files under Demo/Assets are licensed by materialDefender of the MOGRE forums under Creative Commons CC-BY: http://creativecommons.org/licenses/by/3.0/
