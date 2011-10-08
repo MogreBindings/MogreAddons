@@ -1,0 +1,676 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MogreFreeSL</name>
+    </assembly>
+    <members>
+        <member name="T:MogreFreeSL.AmbientSound">
+            <summary>
+            A sound that will play the same way regardless of the camera's position. Instantiated through FSLSoundManager.CreateAmbientSound()
+            </summary>
+        </member>
+        <member name="T:MogreFreeSL.SoundObject">
+            <summary>
+            Object on which AmbientSound and SoundEntity classes are based. Do not use.
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.SoundObject.destroyAfterPlaying">
+            <summary>
+            Automatically destroys the sound after its first play-through. Will not work for looped sounds.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.RemoveSound">
+            <summary>
+            Removes the sound data associated with the current SoundObject.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.SetSound(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Sets the sound (read from a file) that will be used.
+            </summary>
+            <param name="soundFile">Soundfile relative to current directory. Must be in OGG format.</param>
+            <param name="loop">Whether the sound should loop</param>
+            <param name="streaming">Whether the sound should be streamed from the disk (true) or read into the RAM and then played (false).</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.SetSound(System.String,System.String,System.Boolean)">
+            <summary>
+            Sets the sound (read from a file) that will be used.
+            </summary>
+            <param name="package">A ZIP package containing the soundfile to use.</param>
+            <param name="soundFile">Soundfile relative to package. Must be in OGG format.</param>
+            <param name="loop">Whether the sound should loop</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.HasSound">
+            <summary>
+            Returns whether the current SoundObject has a sound.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.Play">
+            <summary>
+            Starts the playback of the current SoundObject.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.Stop">
+            <summary>
+            Stops the playback of the current SoundObject.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.IsPlaying">
+            <summary>
+            Returns whether the current SoundObject is playing.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.Pause">
+            <summary>
+            Pauses the playback of the current SoundObject.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.IsPaused">
+            <summary>
+            Returns whether the current SoundObject is paused.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.LoopSound(System.Boolean)">
+            <summary>
+            Sets whether the current SoundObject is looping.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.IsLooping">
+            <summary>
+            Returns whether the current SoundObject is looping.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.SetSpeed(System.Single)">
+            <summary>
+            Sets the playback speed of the current SoundObject.
+            </summary>
+            <param name="speed">Speed between 0 and 1 at which to play the sound.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.SetGain(System.Single)">
+            <summary>
+            Sets the gain of the current SoundObject.
+            </summary>
+            <param name="gain">Positive or negative gain to apply to the sound.</param>
+        </member>
+        <member name="P:MogreFreeSL.SoundObject.SoundID">
+            <summary>
+            Gets the uint ID that FreeSL uses to identify this sound.
+            </summary>
+        </member>
+        <member name="P:MogreFreeSL.SoundObject.Name">
+            <summary>
+            Gets or sets the name associated with the current SoundObject.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.AmbientSound.RemoveSound">
+            <summary>
+            Removes the sound from the SoundManager and frees the space it consumed.
+            </summary>
+        </member>
+        <member name="T:MogreFreeSL.FSL_SOUND_SYSTEM">
+            <summary>
+            Sound rendering systems available for use with MogreFreeSL.
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_SOUND_SYSTEM.FSL_SS_EAX2">
+            <summary>
+            EAX 2.0 (Direct Sound 3D)
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_SOUND_SYSTEM.FSL_SS_DIRECTSOUND3D">
+            <summary>
+            Direct Sound 3D
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_SOUND_SYSTEM.FSL_SS_DIRECTSOUND">
+            <summary>
+            Direct Sound
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_SOUND_SYSTEM.FSL_SS_NVIDIA_NFORCE_2">
+            <summary>
+            nVidia nForce 2
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_SOUND_SYSTEM.FSL_SS_CREATIVE_AUDIGY_2">
+            <summary>
+            Creative Audigy 2
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_SOUND_SYSTEM.FSL_SS_MMSYSTEM">
+            <summary>
+            Microsoft
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_SOUND_SYSTEM.FSL_SS_ALUT">
+            <summary>
+            ALUT (OpenAL Utility Toolkit)
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_SOUND_SYSTEM.FSL_SS_NOSYSTEM">
+            <summary>
+            No sound system
+            </summary>
+        </member>
+        <member name="T:MogreFreeSL.AL_DISTANCE_MODEL">
+            <summary>
+            Distance models available for use with MogreFreeSL.
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.AL_DISTANCE_MODEL.AL_INVERSE_DISTANCE">
+            <summary>
+            Inverse distance rolloff model, which is equivalent to the IASIG I3DL2 model with the exception that referenceDistance does not imply any clamping.
+            <code>gain = referenceDistance / (referenceDistance + rolloffFactor * (distance - referenceDistance))</code>
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.AL_DISTANCE_MODEL.AL_INVERSE_DISTANCE_CLAMPED">
+            <summary>
+            Inverse Distance clamped model, which is essentially the inverse distance rolloff model, extended to guarantee that for distances below referenceDistance, gain is clamped. This mode is equivalent to the IASIG I3DL2 distance model.
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.AL_DISTANCE_MODEL.AL_LINEAR_DISTANCE">
+            <summary>
+            Linear distance rolloff model, modeling a linear dropoff in gain as distance increases between the source and listener.
+            <code>gain = (1 - rolloffFactor * (distance - referenceDistance) / (maxDistance - referenceDistance))</code>
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.AL_DISTANCE_MODEL.AL_LINEAR_DISTANCE_CLAMPED">
+            <summary>
+            Linear Distance clamped model, which is the linear model, extended to guarantee that for distances below referenceDistance, gain is clamped.
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.AL_DISTANCE_MODEL.AL_EXPONENT_DISTANCE">
+            <summary>
+            Exponential distance rolloff model, modeling an exponential dropoff in gain as distance increases between the source and listener.
+            <code>gain = (distance / referenceDistance) ** (- rolloffFactor)</code>
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.AL_DISTANCE_MODEL.AL_EXPONENT_DISTANCE_CLAMPED">
+            <summary>
+            Exponential Distance clamped model, which is the exponential model, extended to guarantee that for distances below referenceDistance, gain is clamped.
+            </summary>
+        </member>
+        <member name="T:MogreFreeSL.FSL_LISTENER_ENVIRONMENT">
+            <summary>
+            Listener environments available for use with MogreFreeSL. Define your own with FSL_EAX_LISTENER_PROPERTIES.
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_GENERIC">
+            <summary>
+            Generic listener environment
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_PADDEDCELL">
+            <summary>
+            Listener environment simulating a padded cell
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_ROOM">
+            <summary>
+            Listener environment simulating a normal room
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_BATHROOM">
+            <summary>
+            Listener environment simulating a bathroom
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_LIVINGROOM">
+            <summary>
+            Listener environment simulating a living room
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_STONEROOM">
+            <summary>
+            Listener environment simulating a stone room
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_AUDITORIUM">
+            <summary>
+            Listener environment simulating an auditorium
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_CONCERTHALL">
+            <summary>
+            Listener environment simulating a concert hall
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_CAVE">
+            <summary>
+            Listener environment simulating a cave
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_ARENA">
+            <summary>
+            Listener environment simulating an arena
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_HANGAR">
+            <summary>
+            Listener environment simulating a hangar
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_CARPETEDHALLWAY">
+            <summary>
+            Listener environment simulating a carpeted hallway
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_HALLWAY">
+            <summary>
+            Listener environment simulating a hallway
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_STONECORRIDOR">
+            <summary>
+            Listener environment simulating a stone hallway
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_ALLEY">
+            <summary>
+            Listener environment simulating a small alley
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_FOREST">
+            <summary>
+            Listener environment simulating a forest
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_CITY">
+            <summary>
+            Listener environment simulating a city
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_MOUNTAINS">
+            <summary>
+            Listener environment simulating mountainous terrain
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_QUARRY">
+            <summary>
+            Listener environment simulating a quarry
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_PLAIN">
+            <summary>
+            Listener environment simulating some plains
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_PARKINGLOT">
+            <summary>
+            Listener environment simulating a parkinglot
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_SEWERPIPE">
+            <summary>
+            Listener environment simulating a sewer
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_UNDERWATER">
+            <summary>
+            Listener environment simulating an underwater environment
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_DRUGGED">
+            <summary>
+            Listener environment simulating the effect of being drugged
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_DIZZY">
+            <summary>
+            Listener environment simulating the effect of being dizzy
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_LISTENER_ENVIRONMENT.FSL_ENVIRONMENT_PSYCHOTIC">
+            <summary>
+            Listener environment simulating the effect of being psychotic
+            </summary>
+        </member>
+        <member name="T:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES">
+            <summary>
+            A struct which may be used to define a custom listener environment. Presets are available through FSL_LISTENER_ENVIRONMENT.
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.lRoom">
+            <summary>
+            Room effect level at low frequencies
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.lRoomHF">
+            <summary>
+            Room effect high-frequency level re. low frequency level
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.flRoomRolloffFactor">
+            <summary>
+            Like DS3D flRolloffFactor but for room effect
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.flDecayTime">
+            <summary>
+            Reverberation decay time at low frequencies
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.flDecayHFRatio">
+            <summary>
+            High-frequency to low-frequency decay time ratio
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.lReflections">
+            <summary>
+            Early reflections level relative to room effect
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.flReflectionsDelay">
+            <summary>
+            Initial reflection delay time
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.lReverb">
+            <summary>
+            Late reverberation level relative to room effect
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.flReverbDelay">
+            <summary>
+            Late reverberation delay time relative to initial reflection
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.dwEnvironment">
+            <summary>
+            Sets all listener properties
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.flEnvironmentSize">
+            <summary>
+            Environment size in meters
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.flEnvironmentDiffusion">
+            <summary>
+            Environment diffusion
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.flAirAbsorptionHF">
+            <summary>
+            Change in level per meter at 5 kHz
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES.dwFlags">
+            <summary>
+            Modifies the behavior of properties
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.FreeSL.fslSetAutoUpdate(System.Boolean)">
+            <summary>
+            Enables or disables AutoUpdate, which allows streaming to work.
+            </summary>
+            <param name="auto">Whether to use AutoUpdate.</param>
+        </member>
+        <member name="T:MogreFreeSL.Listener">
+            <summary>
+            A "listener," upon which the 3D effect for SoundEntities is based.
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.Listener.ZFlipped">
+            <summary>
+            Variable which fixes incorrect rendering of sound in 3D space. Do not call unless you have issues with SoundEntities rendering improperly.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.Listener.GetPosition">
+            <summary>
+            Gives the Vector3 position of the Listener.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MogreFreeSL.SoundEntity">
+            <summary>
+            A sound that will change in gain and balance depending on where the camera is in relation to a given node. Instantiated through FSLSoundManager.CreateSoundEntity()
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundEntity.SetNode(Mogre.Node)">
+            <summary>
+            Sets which node the SoundEntity is attached to.
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="M:MogreFreeSL.SoundEntity.SetMaxDistance(System.Single)">
+            <summary>
+            Sets the distance from the camera at which this sound will no longer be audible.
+            </summary>
+            <param name="distance">Distance measured in MOGRE units</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundEntity.SetReferenceDistance(System.Single)">
+            <summary>
+            Sets the distance from the camera at which this sound will be at normal volume.
+            </summary>
+            <param name="distance">Distance measured in MOGRE units</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundEntity.RemoveSound">
+            <summary>
+            Removes the sound from the SoundManager and frees the space it consumed.
+            </summary>
+        </member>
+        <member name="T:MogreFreeSL.SoundManager">
+            <summary>
+            The framework through which all sounds are created and all global sound settings are modified. Information and support can be found at http://www.ogre3d.org/tikiwiki/MogreFreeSL
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.InitializeSound(MogreFreeSL.FSL_SOUND_SYSTEM,Mogre.Camera)">
+            <summary>
+            Initializes the sound system.
+            </summary>
+            <param name="soundSystem">Enumeration of FSL_SOUND_SYSTEM to use.</param>
+            <param name="listener">Camera to use as a listener for 3D sound.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.GetAmbientSound(System.Int32)">
+            <summary>
+            Returns the AmbientSound at the provided index. AmbientSounds and SoundEntities DO NOT share index systems.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.GetSoundEntity(System.Int32)">
+            <summary>
+            Returns the SoundEntity at the provided index. AmbientSounds and SoundEntities DO NOT share index systems.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.GetAmbientSound(System.String)">
+            <summary>
+            Returns the AmbientSound with the given name.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.GetSoundEntity(System.String)">
+            <summary>
+            Returns the SoundEntity with the given name.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.Update">
+            <summary>
+            Updates all sounds controlled by the sound manager. This is called by SoundManager.FrameStarted(), so it is not neccessary to call this if you've added a frame listener to FrameStarted().
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.SetListener(Mogre.Camera)">
+            <summary>
+            Sets the listener used by the sound manager for 3D sound calculations.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.GetListener">
+            <summary>
+            Returns the listener used by the sound manager for 3D sound calculations.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.CreateAmbientSound(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Create a sound that may not be rendered in 3D space.
+            </summary>
+            <param name="soundFile">Location of file to use.</param>
+            <param name="name">Name of the 3D sound.</param>
+            <param name="loop">Sets whether the sound should automatically loop.</param>
+            <param name="streaming">Sets whether the sound should be streamed instead of statically loaded. FreeSL.fslAutoUpdate(true) should be called after sound manager initialization if this is set to true.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.CreateAmbientSound(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Create a sound that may not be rendered in 3D space.
+            </summary>
+            <param name="package">Zip file to load sound from.</param>
+            <param name="soundFile">Name of file to use.</param>
+            <param name="name">Name of the 3D sound.</param>
+            <param name="loop">Sets whether the sound should automatically loop.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.CreateSoundEntity(System.String,Mogre.Node,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Create a sound that may be rendered in 3D space.
+            </summary>
+            <param name="soundFile">Location of file to use.</param>
+            <param name="node">Node to attach the 3D sound to.</param>
+            <param name="name">Name of the 3D sound.</param>
+            <param name="loop">Sets whether the sound should automatically loop.</param>
+            <param name="streaming">Sets whether the sound should be streamed instead of statically loaded. FreeSL.fslAutoUpdate(true) should be called after sound manager initialization if this is set to true.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.CreateSoundEntity(System.String,System.String,Mogre.Node,System.String,System.Boolean)">
+            <summary>
+            Create a sound that may be rendered in 3D space.
+            </summary>
+            <param name="package">Zip file to load sound from.</param>
+            <param name="soundFile">Name of file to use.</param>
+            <param name="node">Node to attach the 3D sound to.</param>
+            <param name="name">Name of the 3D sound.</param>
+            <param name="loop">Sets whether the sound should automatically loop.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.FrameStarted(Mogre.FrameEvent)">
+            <summary>
+            Updates all sounds controlled by the sound manager. See the wiki for info on useage.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.Destroy">
+            <summary>
+            Removes all sounds, frees the space they consumed, and shuts down the sound system.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.SetListenerEnvironment(MogreFreeSL.FSL_EAX_LISTENER_PROPERTIES)">
+            <summary>
+            Sets the listener environment.
+            </summary>
+            <param name="prop">The prop.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.SetListenerEnvironmentPreset(MogreFreeSL.FSL_LISTENER_ENVIRONMENT)">
+            <summary>
+            Sets the listener environment preset.
+            </summary>
+            <param name="type">The type.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.SetListenerDefaultEnvironment">
+            <summary>
+            Sets the listener default environment.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.GetCurrentListenerEnvironment">
+            <summary>
+            Gets the current listener environment.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.LoadListenerEnvironment(System.String)">
+            <summary>
+            Loads the listener environment.
+            </summary>
+            <param name="strFile">The STR file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.LoadListenerEnvironmentFromZip(System.String,System.String)">
+            <summary>
+            Loads the listener environment from zip.
+            </summary>
+            <param name="strFile">The STR file.</param>
+            <param name="strPackage">The STR package.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.CreateListenerEnvironment(System.String,System.UInt32)">
+            <summary>
+            Creates the listener environment.
+            </summary>
+            <param name="strData">The STR data.</param>
+            <param name="Size">The size.</param>
+            <returns></returns>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.GetMemoryUseage">
+            <summary>
+            Gets the current memory usage of all non-streaming sounds. This method does not seem to work properly.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.PauseAllSounds">
+            <summary>
+            Pauses all sounds currently playing.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.UnpauseAllSounds">
+            <summary>
+            Unpauses all sounds currently paused.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.StopAllSounds">
+            <summary>
+            Stops all sounds currently playing.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.SetSpeed(System.Single)">
+            <summary>
+            Sets the speed of all sounds.
+            </summary>
+            <param name="pitch">Speed between 0 and 1 at which to play the sound.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.SetGain(System.Single)">
+            <summary>
+            Sets the gain of all sounds.
+            </summary>
+            <param name="gain">Positive or negative gain to apply to all sounds.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.SetDopplerParameters(System.Single,System.Single)">
+            <summary>
+            Sets parameters for the doppler effect.
+            </summary>
+            <param name="factor">Factor by which to scale the Doppler effect. 0 = off, 1 = normal.</param>
+            <param name="velocity">A leftover input variable from OpenAL 1.0. Default value is 1.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.SetSpeedOfSound(System.Single)">
+            <summary>
+            Sets speed of sound for use by the doppler effect.
+            </summary>
+            <param name="speed">Speed of sound to assign. The default value is 343.3.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundManager.SetLinearDistanceModel(MogreFreeSL.AL_DISTANCE_MODEL)">
+            <summary>
+            Sets the distance-based sound attenuation model. Controls how the gain of sound sources is affected by distance from the listener.
+            </summary>
+            <param name="model">Model to apply as the distance sound attenuation model. The default attenuation model is AL_INVERSE_DISTANCE_CLAMPED.</param>
+        </member>
+        <member name="P:MogreFreeSL.SoundManager.Instance">
+            <summary>
+            Gets the instance.
+            </summary>
+            <value>The instance.</value>
+        </member>
+        <member name="P:MogreFreeSL.SoundManager.NumberOfSoundEntities">
+            <summary>
+            Returns the number of SoundEntities currently set up and playable.
+            </summary>
+        </member>
+        <member name="P:MogreFreeSL.SoundManager.NumberOfAmbientSounds">
+            <summary>
+            Returns the number of AmbientSounds currently set up and playable.
+            </summary>
+        </member>
+        <member name="P:MogreFreeSL.SoundManager.Volume">
+            <summary>
+            Sets the volume of all sounds belonging to this manager
+            </summary>
+        </member>
+        <member name="P:MogreFreeSL.SoundManager.Initialized">
+            <summary>
+            Gets if this manager is initialized
+            </summary>
+        </member>
+    </members>
+</doc>
