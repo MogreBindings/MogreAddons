@@ -1,6 +1,0 @@
-C:\Users\Jon\Desktop\MogreFreeSL Development\mogre-mogreaddons-eafcdfaf2263\MogreFreeSL\Source\bin\Debug\MogreFreeSL.XML
-C:\Users\Jon\Desktop\MogreFreeSL Development\mogre-mogreaddons-eafcdfaf2263\MogreFreeSL\Source\bin\Debug\MogreFreeSL.dll
-C:\Users\Jon\Desktop\MogreFreeSL Development\mogre-mogreaddons-eafcdfaf2263\MogreFreeSL\Source\bin\Debug\MogreFreeSL.pdb
-C:\Users\Jon\Desktop\MogreFreeSL Development\mogre-mogreaddons-eafcdfaf2263\MogreFreeSL\Source\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\Jon\Desktop\MogreFreeSL Development\mogre-mogreaddons-eafcdfaf2263\MogreFreeSL\Source\obj\Debug\MogreFreeSL.dll
-C:\Users\Jon\Desktop\MogreFreeSL Development\mogre-mogreaddons-eafcdfaf2263\MogreFreeSL\Source\obj\Debug\MogreFreeSL.pdb

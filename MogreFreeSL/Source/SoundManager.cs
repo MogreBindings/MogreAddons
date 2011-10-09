@@ -425,7 +425,7 @@ namespace MogreFreeSL
         /// Sets the speed of all sounds.
         /// </summary>
         /// <param name="pitch">Speed between 0 and 1 at which to play the sound.</param>
-        public void SetSpeed(float pitch)
+        public void SetSpeedAllSounds(float pitch)
         {
             FreeSL.fslSoundSetSpeedAllSounds(pitch);
         }
@@ -434,7 +434,7 @@ namespace MogreFreeSL
         /// Sets the gain of all sounds.
         /// </summary>
         /// <param name="gain">Positive or negative gain to apply to all sounds.</param>
-        public void SetGain(float gain)
+        public void SetGainAllSounds(float gain)
         {
             FreeSL.fslSoundSetGainAllSounds(gain);
         }

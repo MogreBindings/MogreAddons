@@ -4,109 +4,6 @@
         <name>MogreFreeSL</name>
     </assembly>
     <members>
-        <member name="T:MogreFreeSL.AmbientSound">
-            <summary>
-            A sound that will play the same way regardless of the camera's position. Instantiated through FSLSoundManager.CreateAmbientSound()
-            </summary>
-        </member>
-        <member name="T:MogreFreeSL.SoundObject">
-            <summary>
-            Object on which AmbientSound and SoundEntity classes are based. Do not use.
-            </summary>
-        </member>
-        <member name="F:MogreFreeSL.SoundObject.destroyAfterPlaying">
-            <summary>
-            Automatically destroys the sound after its first play-through. Will not work for looped sounds.
-            </summary>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.RemoveSound">
-            <summary>
-            Removes the sound data associated with the current SoundObject.
-            </summary>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.SetSound(System.String,System.Boolean,System.Boolean)">
-            <summary>
-            Sets the sound (read from a file) that will be used.
-            </summary>
-            <param name="soundFile">Soundfile relative to current directory. Must be in OGG format.</param>
-            <param name="loop">Whether the sound should loop</param>
-            <param name="streaming">Whether the sound should be streamed from the disk (true) or read into the RAM and then played (false).</param>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.SetSound(System.String,System.String,System.Boolean)">
-            <summary>
-            Sets the sound (read from a file) that will be used.
-            </summary>
-            <param name="package">A ZIP package containing the soundfile to use.</param>
-            <param name="soundFile">Soundfile relative to package. Must be in OGG format.</param>
-            <param name="loop">Whether the sound should loop</param>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.HasSound">
-            <summary>
-            Returns whether the current SoundObject has a sound.
-            </summary>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.Play">
-            <summary>
-            Starts the playback of the current SoundObject.
-            </summary>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.Stop">
-            <summary>
-            Stops the playback of the current SoundObject.
-            </summary>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.IsPlaying">
-            <summary>
-            Returns whether the current SoundObject is playing.
-            </summary>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.Pause">
-            <summary>
-            Pauses the playback of the current SoundObject.
-            </summary>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.IsPaused">
-            <summary>
-            Returns whether the current SoundObject is paused.
-            </summary>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.LoopSound(System.Boolean)">
-            <summary>
-            Sets whether the current SoundObject is looping.
-            </summary>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.IsLooping">
-            <summary>
-            Returns whether the current SoundObject is looping.
-            </summary>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.SetSpeed(System.Single)">
-            <summary>
-            Sets the playback speed of the current SoundObject.
-            </summary>
-            <param name="speed">Speed between 0 and 1 at which to play the sound.</param>
-        </member>
-        <member name="M:MogreFreeSL.SoundObject.SetGain(System.Single)">
-            <summary>
-            Sets the gain of the current SoundObject.
-            </summary>
-            <param name="gain">Positive or negative gain to apply to the sound.</param>
-        </member>
-        <member name="P:MogreFreeSL.SoundObject.SoundID">
-            <summary>
-            Gets the uint ID that FreeSL uses to identify this sound.
-            </summary>
-        </member>
-        <member name="P:MogreFreeSL.SoundObject.Name">
-            <summary>
-            Gets or sets the name associated with the current SoundObject.
-            </summary>
-        </member>
-        <member name="M:MogreFreeSL.AmbientSound.RemoveSound">
-            <summary>
-            Removes the sound from the SoundManager and frees the space it consumed.
-            </summary>
-        </member>
         <member name="T:MogreFreeSL.FSL_SOUND_SYSTEM">
             <summary>
             Sound rendering systems available for use with MogreFreeSL.
@@ -406,21 +303,98 @@
             </summary>
             <param name="auto">Whether to use AutoUpdate.</param>
         </member>
-        <member name="T:MogreFreeSL.Listener">
+        <member name="T:MogreFreeSL.SoundObject">
             <summary>
-            A "listener," upon which the 3D effect for SoundEntities is based.
+            Object on which AmbientSound and SoundEntity classes are based. Do not use.
             </summary>
         </member>
-        <member name="F:MogreFreeSL.Listener.ZFlipped">
+        <member name="F:MogreFreeSL.SoundObject.destroyAfterPlaying">
             <summary>
-            Variable which fixes incorrect rendering of sound in 3D space. Do not call unless you have issues with SoundEntities rendering improperly.
+            Automatically destroys the sound after its first play-through. Will not work for looped sounds.
             </summary>
         </member>
-        <member name="M:MogreFreeSL.Listener.GetPosition">
+        <member name="M:MogreFreeSL.SoundObject.RemoveSound">
             <summary>
-            Gives the Vector3 position of the Listener.
+            Removes the sound data associated with the current SoundObject.
             </summary>
-            <returns></returns>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.SetSound(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Sets the sound (read from a file) that will be used.
+            </summary>
+            <param name="soundFile">Soundfile relative to current directory. Must be in OGG format.</param>
+            <param name="loop">Whether the sound should loop</param>
+            <param name="streaming">Whether the sound should be streamed from the disk (true) or read into the RAM and then played (false).</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.SetSound(System.String,System.String,System.Boolean)">
+            <summary>
+            Sets the sound (read from a file) that will be used.
+            </summary>
+            <param name="package">A ZIP package containing the soundfile to use.</param>
+            <param name="soundFile">Soundfile relative to package. Must be in OGG format.</param>
+            <param name="loop">Whether the sound should loop</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.HasSound">
+            <summary>
+            Returns whether the current SoundObject has a sound.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.Play">
+            <summary>
+            Starts the playback of the current SoundObject.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.Stop">
+            <summary>
+            Stops the playback of the current SoundObject.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.IsPlaying">
+            <summary>
+            Returns whether the current SoundObject is playing.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.Pause">
+            <summary>
+            Pauses the playback of the current SoundObject.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.IsPaused">
+            <summary>
+            Returns whether the current SoundObject is paused.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.LoopSound(System.Boolean)">
+            <summary>
+            Sets whether the current SoundObject is looping.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.IsLooping">
+            <summary>
+            Returns whether the current SoundObject is looping.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.SetSpeed(System.Single)">
+            <summary>
+            Sets the playback speed of the current SoundObject.
+            </summary>
+            <param name="speed">Speed between 0 and 1 at which to play the sound.</param>
+        </member>
+        <member name="M:MogreFreeSL.SoundObject.SetGain(System.Single)">
+            <summary>
+            Sets the gain of the current SoundObject.
+            </summary>
+            <param name="gain">Positive or negative gain to apply to the sound.</param>
+        </member>
+        <member name="P:MogreFreeSL.SoundObject.SoundID">
+            <summary>
+            Gets the uint ID that FreeSL uses to identify this sound.
+            </summary>
+        </member>
+        <member name="P:MogreFreeSL.SoundObject.Name">
+            <summary>
+            Gets or sets the name associated with the current SoundObject.
+            </summary>
         </member>
         <member name="T:MogreFreeSL.SoundEntity">
             <summary>
@@ -615,13 +589,13 @@
             Stops all sounds currently playing.
             </summary>
         </member>
-        <member name="M:MogreFreeSL.SoundManager.SetSpeed(System.Single)">
+        <member name="M:MogreFreeSL.SoundManager.SetSpeedAllSounds(System.Single)">
             <summary>
             Sets the speed of all sounds.
             </summary>
             <param name="pitch">Speed between 0 and 1 at which to play the sound.</param>
         </member>
-        <member name="M:MogreFreeSL.SoundManager.SetGain(System.Single)">
+        <member name="M:MogreFreeSL.SoundManager.SetGainAllSounds(System.Single)">
             <summary>
             Sets the gain of all sounds.
             </summary>
@@ -671,6 +645,32 @@
             <summary>
             Gets if this manager is initialized
             </summary>
+        </member>
+        <member name="T:MogreFreeSL.AmbientSound">
+            <summary>
+            A sound that will play the same way regardless of the camera's position. Instantiated through FSLSoundManager.CreateAmbientSound()
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.AmbientSound.RemoveSound">
+            <summary>
+            Removes the sound from the SoundManager and frees the space it consumed.
+            </summary>
+        </member>
+        <member name="T:MogreFreeSL.Listener">
+            <summary>
+            A "listener," upon which the 3D effect for SoundEntities is based.
+            </summary>
+        </member>
+        <member name="F:MogreFreeSL.Listener.ZFlipped">
+            <summary>
+            Variable which fixes incorrect rendering of sound in 3D space. Do not call unless you have issues with SoundEntities rendering improperly.
+            </summary>
+        </member>
+        <member name="M:MogreFreeSL.Listener.GetPosition">
+            <summary>
+            Gives the Vector3 position of the Listener.
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>
