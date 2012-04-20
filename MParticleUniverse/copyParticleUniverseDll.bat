@@ -1,0 +1,2 @@
+del "C:\Users\Ga'an\Documents\Visual Studio 2010\Projects\MParticleUniverse\ParticleUniverseTest\bin\Debug\ParticleUniverse.dll"
+copy "C:\Program Files\Particle Universe\Particle Universe Plugin\VCBuild\bin\Release\ParticleUniverse.dll" "C:\Users\Ga'an\Documents\Visual Studio 2010\Projects\MParticleUniverse\ParticleUniverseTest\bin\Debug\ParticleUniverse.dll"
