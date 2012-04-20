@@ -1,0 +1,9 @@
+
+You can download the media files here:
+https://bitbucket.org/mogre/mogreaddons/downloads/MParticleUniverse__ParticleUniverseTest_MediaFiles.zip
+
+Just exctact the archive here.
+
+Note:
+The files were not included to the repository, because it shouldn't get 
+blow up by huge binary files.
