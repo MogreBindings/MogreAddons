@@ -1,0 +1,37 @@
+﻿Fixes to do:
+
+ParticleTechnique.WorldBoundingBox
+ScriptReader not Implemented
+ParticleSystem.GetBoundingBox
+ParticleSystem.GetMainCamera
+Doublecheck ParticleScriptSerializer and Strings being passed as null
+ParticleRendererFactory not Implemented.
+ParticlePool.IncreasePool not Implemented.
+ParticleObserverFactory not Implemented.
+ParticleEventHandlerFactory not Implemented.
+ParticleEmitterFactory not Implemented.
+ParticleBehaviourFactory not Implemented.
+ParticleAffectorFactory not Implemented.
+ParticleFactory not Implemented.
+Particle.UserDefinedObject not Implemented.
+ExternFactory.CreateExtern not Implemented.
+Attachable.GetBoundingBox
+
+
+Classes to add?:
+
+ParticleUniverseAtlasImage.h
+ParticleUniverseNoise.h
+ParticleUniversePhysicsExtern.h
+ParticleUniversePhysicsShape.h
+ParticleUniversePlane.h
+ParticleUniversePoolMap.h
+ParticleUniverseSpatialHashTable.h
+
+
+Externs/ParticleUniversePhysXActorExtern.h
+Externs/ParticleUniversePhysXBridge.h
+Externs/ParticleUniversePhysXExtern.h
+Externs/ParticleUniversePhysXFluidExtern.h
+Externs/ParticleUniversePhysXLogging.h
+Externs/ParticleUniversePhysxMath.h

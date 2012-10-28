@@ -1,0 +1,2 @@
+del "C:\Users\Ga'an\Documents\Visual Studio 2010\Projects\MParticleUniverse\ParticleUniverse C++\Exports.cpp"
+copy "C:\Program Files\Particle Universe\Particle Universe Plugin\VCBuild\Plugins\ParticleUniverse\scripts\Exports.cpp" "C:\Users\Ga'an\Documents\Visual Studio 2010\Projects\MParticleUniverse\ParticleUniverse C++\Exports.cpp"

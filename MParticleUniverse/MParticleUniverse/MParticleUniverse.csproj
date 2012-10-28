@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A75195FD-EADC-460C-B9F2-DB61C1CBEE0A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MParticleUniverse</RootNamespace>
+    <AssemblyName>MParticleUniverse</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mogre">
+      <HintPath>..\..\UniverseBrowser\UniverseBrowser\bin\Debug\Mogre.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attachable.cs" />
+    <Compile Include="Externs\BoxColliderExtern.cs" />
+    <Compile Include="Externs\GravityExtern.cs" />
+    <Compile Include="Externs\SceneDecoratorExtern.cs" />
+    <Compile Include="Externs\SphereColliderExtern.cs" />
+    <Compile Include="Externs\VortexExtern.cs" />
+    <Compile Include="IDependency.cs" />
+    <Compile Include="ParticleEmitters\BoxEmitter.cs" />
+    <Compile Include="ParticleEmitters\CircleEmitter.cs" />
+    <Compile Include="ParticleEmitters\LineEmitter.cs" />
+    <Compile Include="ParticleEmitters\MeshSurfaceEmitter.cs" />
+    <Compile Include="ParticleEmitters\PointEmitter.cs" />
+    <Compile Include="ParticleEmitters\PositionEmitter.cs" />
+    <Compile Include="ParticleEmitters\SlaveEmitter.cs" />
+    <Compile Include="ParticleEmitters\SphereSurfaceEmitter.cs" />
+    <Compile Include="ParticleEmitters\VertexEmitter.cs" />
+    <Compile Include="ParticleEventHandlers\DoAffectorEventHandler.cs" />
+    <Compile Include="ParticleEventHandlers\DoEnableComponentEventHandler.cs" />
+    <Compile Include="ParticleEventHandlers\DoExpireEventHandler.cs" />
+    <Compile Include="ParticleEventHandlers\DoFreezeEventHandler.cs" />
+    <Compile Include="ParticleEventHandlers\DoPlacementParticleEventHandler.cs" />
+    <Compile Include="ParticleEventHandlers\DoScaleEventHandler.cs" />
+    <Compile Include="ParticleEventHandlers\DoStopSystemEventHandler.cs" />
+    <Compile Include="ParticleObservers\OnClearObserver.cs" />
+    <Compile Include="ParticleObservers\OnCollisionObserver.cs" />
+    <Compile Include="ParticleObservers\OnCountObserver.cs" />
+    <Compile Include="ParticleObservers\OnEmissionObserver.cs" />
+    <Compile Include="ParticleObservers\OnEventFlagObserver.cs" />
+    <Compile Include="ParticleObservers\OnExpireObserver.cs" />
+    <Compile Include="ParticleObservers\OnPositionObserver.cs" />
+    <Compile Include="ParticleObservers\OnQuotaObserver.cs" />
+    <Compile Include="ParticleObservers\OnRandomObserver.cs" />
+    <Compile Include="ParticleObservers\OnTimeObserver.cs" />
+    <Compile Include="ParticleObservers\OnVelocityObserver.cs" />
+    <Compile Include="ParticleRenderers\BeamRenderer.cs" />
+    <Compile Include="ParticleRenderers\Billboard.cs" />
+    <Compile Include="ParticleRenderers\BillboardRenderer.cs" />
+    <Compile Include="ParticleRenderers\BoxRenderer.cs" />
+    <Compile Include="ParticleRenderers\EntityRenderer.cs" />
+    <Compile Include="ForceField.cs" />
+    <Compile Include="ParticleRenderers\LightRenderer.cs" />
+    <Compile Include="ParticleAffectors\BaseCollider.cs" />
+    <Compile Include="ParticleAffectors\BaseForceAffector.cs" />
+    <Compile Include="ParticleAffectors\BoxCollider.cs" />
+    <Compile Include="CameraDependency.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="DynamicAttribute.cs" />
+    <Compile Include="Extern.cs" />
+    <Compile Include="ExternFactory.cs" />
+    <Compile Include="IAlias.cs" />
+    <Compile Include="IElement.cs" />
+    <Compile Include="IVisualData.cs" />
+    <Compile Include="Particle.cs" />
+    <Compile Include="ParticleAffector.cs" />
+    <Compile Include="ParticleAffectorFactory.cs" />
+    <Compile Include="ParticleAffectors\AlignAffector.cs" />
+    <Compile Include="ParticleAffectors\CollisionAvoidanceAffector.cs" />
+    <Compile Include="ParticleAffectors\ColourAffector.cs" />
+    <Compile Include="ParticleAffectors\FlockCenteringAffector.cs" />
+    <Compile Include="ParticleAffectors\ForceFieldAffector.cs" />
+    <Compile Include="ParticleAffectors\GeometryRotator.cs" />
+    <Compile Include="ParticleAffectors\GravityAffector.cs" />
+    <Compile Include="ParticleAffectors\InterParticleCollider.cs" />
+    <Compile Include="ParticleAffectors\JetAffector.cs" />
+    <Compile Include="ParticleAffectors\LineAffector.cs" />
+    <Compile Include="ParticleAffectors\LinearForceAffector.cs" />
+    <Compile Include="ParticleAffectors\ParticleFollower.cs" />
+    <Compile Include="ParticleAffectors\PathFollower.cs" />
+    <Compile Include="ParticleAffectors\PlaneCollider.cs" />
+    <Compile Include="ParticleAffectors\Randomiser.cs" />
+    <Compile Include="ParticleAffectors\ScaleAffector.cs" />
+    <Compile Include="ParticleAffectors\ScaleVelocityAffector.cs" />
+    <Compile Include="ParticleAffectors\SineForceAffector.cs" />
+    <Compile Include="ParticleAffectors\SphereCollider.cs" />
+    <Compile Include="ParticleAffectors\TextureAnimator.cs" />
+    <Compile Include="ParticleAffectors\TextureRotator.cs" />
+    <Compile Include="ParticleAffectors\VelocityMatchingAffector.cs" />
+    <Compile Include="ParticleAffectors\VortexAffector.cs" />
+    <Compile Include="ParticleBehaviour.cs" />
+    <Compile Include="ParticleBehaviourFactory.cs" />
+    <Compile Include="ParticleBehaviours\SlaveBehaviour.cs" />
+    <Compile Include="ParticleEmitter.cs" />
+    <Compile Include="ParticleEmitterFactory.cs" />
+    <Compile Include="ParticleEventHandler.cs" />
+    <Compile Include="ParticleEventHandlerFactory.cs" />
+    <Compile Include="ParticleObserver.cs" />
+    <Compile Include="ParticleObserverFactory.cs" />
+    <Compile Include="ParticlePool.cs" />
+    <Compile Include="ParticleRenderer.cs" />
+    <Compile Include="ParticleRendererFactory.cs" />
+    <Compile Include="ParticleRenderers\Box.cs" />
+    <Compile Include="ParticleRenderers\BoxSet.cs" />
+    <Compile Include="ParticleRenderers\PrimitiveShapeSet.cs" />
+    <Compile Include="ParticleRenderers\Sphere.cs" />
+    <Compile Include="ParticleRenderers\SphereSet.cs" />
+    <Compile Include="ParticleScriptSerializer.cs" />
+    <Compile Include="ParticleSystemListener.cs" />
+    <Compile Include="ParticleSystemManager.cs" />
+    <Compile Include="ParticleSystem.cs" />
+    <Compile Include="ParticleTechnique.cs" />
+    <Compile Include="PhysicsActor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ParticleRenderers\RibbonTrailRenderer.cs" />
+    <Compile Include="ParticleRenderers\SphereRenderer.cs" />
+    <Compile Include="ScriptReader.cs" />
+    <Compile Include="ScriptWriter.cs" />
+    <Compile Include="TechniqueListener.cs" />
+    <Compile Include="VisualParticle.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="TODO.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,19 @@
+
+   MogreDesignSupport alias PROPERTY GRID
+================================================
+
+This is a short information about this add-on.
+
+Project start:  April 2009
+Author:  Koirat      --> seems to be retired, but possibly gives still support in the forum. 
+
+Koirat had some need to be able to edit Mogre types objects in a PropertyGrid. 
+He prepared some useful classes to allow such a possibility.
+The goal was to make TypeConverter and UITypeEditor that would present 
+different functionality depending on underling object. 
+In addition this functionality can be changed at run-time. 
+
+For details look to the related forum topic:
+http://www.ogre3d.org/addonforums/viewtopic.php?f=8&t=9897
+
+
