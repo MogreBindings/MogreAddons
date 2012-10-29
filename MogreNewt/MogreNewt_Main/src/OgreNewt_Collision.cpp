@@ -1,4 +1,6 @@
+#pragma managed(push, off)
 #include <Ogre.h>
+#pragma managed(pop)
 #include <OgreNewt_Collision.h>
 #include <OgreNewt_World.h>
 #include <OgreNewt_Tools.h>

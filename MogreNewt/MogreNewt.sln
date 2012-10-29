@@ -1,15 +1,15 @@
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MogreNewt", "MogreNewt_Main\MogreNewt_Main.vcproj", "{DCC3C838-9803-497D-8C32-A5985644CCE9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Basics", "Samples\Basics\Demo.Basics.csproj", "{3BA72795-BA7D-4D45-99E7-538D07E08201}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.SimpleVehicle", "Samples\SimpleVehicle\Demo.SimpleVehicle.csproj", "{F7A63898-41B7-4392-A98D-91C2803B99FD}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{355BB44F-E544-4435-8DBA-3096393E7B89}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.txt = Readme.txt
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MogreNewt", "MogreNewt_Main\MogreNewt_Main.vcxproj", "{DCC3C838-9803-497D-8C32-A5985644CCE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.Basics", "Samples\Basics\Demo.Basics.csproj", "{3BA72795-BA7D-4D45-99E7-538D07E08201}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.SimpleVehicle", "Samples\SimpleVehicle\Demo.SimpleVehicle.csproj", "{F7A63898-41B7-4392-A98D-91C2803B99FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

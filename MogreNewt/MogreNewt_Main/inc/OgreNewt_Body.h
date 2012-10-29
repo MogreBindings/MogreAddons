@@ -17,8 +17,10 @@
 #define _INCLUDE_OGRENEWT_BODY
 
 
+#pragma managed(push, off)
 #include <Ogre.h>
 #include <Newton.h>
+#pragma managed(pop)
 #include "OgreNewt_Prerequisites.h"
 #include "OgreNewt_MaterialID.h"
 #include "OgreNewt_Collision.h"

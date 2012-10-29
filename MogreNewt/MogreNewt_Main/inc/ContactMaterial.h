@@ -1,7 +1,9 @@
 #pragma once
 
+#pragma managed(push, off)
 #include <Newton.h>
 #include <Ogre.h>
+#pragma managed(pop)
 #include "OgreNewt_Prerequisites.h"
 
 // OgreNewt namespace.  all functions and classes use this namespace.
@@ -23,25 +25,32 @@ public:
     unsigned get();
   }
 
-  unsigned GetBodyCollisionID( MogreNewt::Body^ body );
+// NOTE: This function was removed in Newton 2.34
+//  unsigned GetBodyCollisionID( MogreNewt::Body^ body );
 
   property dFloat ContactNormalSpeed
   {	
     dFloat get();
   }
 
-  property Mogre::Vector3 ContactForce { Mogre::Vector3 get(); }
+  Mogre::Vector3 GetContactForce( MogreNewt::Body^ body );
 
-  property Mogre::Vector3 ContactPosition { Mogre::Vector3 get(); }
+  Mogre::Vector3 GetContactPosition( MogreNewt::Body^ body );
 
-  property Mogre::Vector3 ContactNormal { Mogre::Vector3 get(); }
+  Mogre::Vector3 GetContactNormal( MogreNewt::Body^ body );
 
-  property Mogre::Vector3 ContactFirstTangent { Mogre::Vector3 get(); }
+  Mogre::Vector3 GetContactFirstTangent( MogreNewt::Body^ body );
 
-  property Mogre::Vector3 ContactSecondTangent { Mogre::Vector3 get(); }
+  Mogre::Vector3 GetContactSecondTangent( MogreNewt::Body^ body );
 
-  void GetContactPositionAndNormal([Out] Mogre::Vector3 %position, [Out] Mogre::Vector3 %normal);
-  void GetContactTangentDirections([Out] Mogre::Vector3 %dir0, [Out] Mogre::Vector3 %dir1);
+  void GetContactPositionAndNormal(
+		MogreNewt::Body^ body,
+	  [Out] Mogre::Vector3 %position, [Out] Mogre::Vector3 %normal
+	);
+  void GetContactTangentDirections(
+	  MogreNewt::Body^ body,
+		[Out] Mogre::Vector3 %dir0, [Out] Mogre::Vector3 %dir1
+	);
   dFloat GetContactTangentSpeed(int index);
 
 

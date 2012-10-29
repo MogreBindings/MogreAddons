@@ -20,16 +20,18 @@ dFloat Material::ContactNormalSpeed::get()
   return NewtonMaterialGetContactNormalSpeed(_mat);
 }
 
-Mogre::Vector3 Material::ContactForce::get()
+Mogre::Vector3 Material::GetContactForce( MogreNewt::Body^ body )
 {
   dFloat force[3];
-  NewtonMaterialGetContactForce(_mat, force);
+  NewtonMaterialGetContactForce(_mat, body->NewtonBody, force);
   return Mogre::Vector3(force);
 }
 
-void Material::GetContactPositionAndNormal([Out] Mogre::Vector3 %position, [Out] Mogre::Vector3 %normal) {
+void Material::GetContactPositionAndNormal(
+	MogreNewt::Body^ body, [Out] Mogre::Vector3 %position, [Out] Mogre::Vector3 %normal
+) {
   dFloat pos[3], norm[3];
-  NewtonMaterialGetContactPositionAndNormal(_mat, pos, norm);
+  NewtonMaterialGetContactPositionAndNormal(_mat, body->NewtonBody, pos, norm);
   position.x = pos[0];
   position.y = pos[1];
   position.z = pos[2];
@@ -38,9 +40,12 @@ void Material::GetContactPositionAndNormal([Out] Mogre::Vector3 %position, [Out]
   normal.z = norm[2];
 }
 
-void Material::GetContactTangentDirections([Out] Mogre::Vector3 %dir0, [Out] Mogre::Vector3 %dir1) {
+void Material::GetContactTangentDirections(
+  MogreNewt::Body^ body,
+  [Out] Mogre::Vector3 %dir0, [Out] Mogre::Vector3 %dir1
+) {
   dFloat ndir0[3], ndir1[3];
-  NewtonMaterialGetContactTangentDirections(_mat, ndir0, ndir1);
+  NewtonMaterialGetContactTangentDirections(_mat, body->NewtonBody, ndir0, ndir1);
   dir0.x = ndir0[0];
   dir0.y = ndir0[1];
   dir0.z = ndir0[2];

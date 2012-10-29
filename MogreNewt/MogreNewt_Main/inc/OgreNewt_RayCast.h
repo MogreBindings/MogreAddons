@@ -13,8 +13,10 @@
 #define _INCLUDE_OGRENEWT_RAYCAST
 
 
+#pragma managed(push, off)
 #include <Ogre.h>
 #include <Newton.h>
+#pragma managed(pop)
 #include "OgreNewt_World.h"
 #include "OgreNewt_Body.h"
 #include "OgreNewt_CollisionPrimitives.h"

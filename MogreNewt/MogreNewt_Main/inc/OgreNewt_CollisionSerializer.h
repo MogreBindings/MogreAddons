@@ -11,10 +11,14 @@ by Walaber
 #ifndef _INCLUDE_OGRENEWT_COLLISIONSERIALIZER
 #define _INCLUDE_OGRENEWT_COLLISIONSERIALIZER
 
+#pragma managed(push, off)
 #include <Newton.h>
+#pragma managed(pop)
 #include "OgreNewt_World.h"
+#pragma managed(push, off)
 #include "OgreSerializer.h"
 #include "OgreString.h"
+#pragma managed(pop)
 
 // OgreNewt namespace.  all functions and classes use this namespace.
 namespace MogreNewt

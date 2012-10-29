@@ -1,6 +1,8 @@
 #pragma once
 
+#pragma managed(push, off)
 #include <Newton.h>
+#pragma managed(pop)
 #include "ContactMaterial.h"
 
 // OgreNewt namespace.  all functions and classes use this namespace.

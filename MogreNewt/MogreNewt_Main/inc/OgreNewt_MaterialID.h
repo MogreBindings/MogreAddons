@@ -11,7 +11,9 @@
 #ifndef _INCLUDE_OGRENEWT_MATERIALID
 #define _INCLUDE_OGRENEWT_MATERIALID
 
+#pragma managed(push, off)
 #include <Newton.h>
+#pragma managed(pop)
 #include "OgreNewt_World.h"
 
 // OgreNewt namespace.  all functions and classes use this namespace.

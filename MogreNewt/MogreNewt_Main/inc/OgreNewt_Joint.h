@@ -11,7 +11,9 @@
 #ifndef _INCLUDE_OGRENEWT_JOINT
 #define _INCLUDE_OGRENEWT_JOINT
 
+#pragma managed(push, off)
 #include <Newton.h>
+#pragma managed(pop)
 #include "OgreNewt_World.h"
 #include "OgreNewt_Body.h"
 

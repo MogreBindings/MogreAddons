@@ -21,9 +21,10 @@
 using namespace System;
 using namespace System::Runtime::InteropServices;
 
-
+#pragma managed(push, off)
 #include <Ogre.h>
 #include "OgreFontManager.h"
+#pragma managed(pop)
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #   define _CDECL _cdecl

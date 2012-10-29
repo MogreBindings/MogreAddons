@@ -1,7 +1,9 @@
 #include <OgreNewt_CollisionSerializer.h>
 #include <OgreNewt_Collision.h>
 
-#include "Ogre.h"
+#pragma managed(push, off)
+#include <Ogre.h>
+#pragma managed(pop)
 
 namespace MogreNewt
 {
