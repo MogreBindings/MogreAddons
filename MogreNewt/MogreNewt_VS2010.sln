@@ -1,0 +1,34 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{355BB44F-E544-4435-8DBA-3096393E7B89}"
+	ProjectSection(SolutionItems) = preProject
+		Build_instructions.txt = Build_instructions.txt
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MogreNewt", "MogreNewt_Main\MogreNewt_Main.vcxproj", "{DCC3C838-9803-497D-8C32-A5985644CCE9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCC3C838-9803-497D-8C32-A5985644CCE9}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{DCC3C838-9803-497D-8C32-A5985644CCE9}.Debug|Mixed Platforms.ActiveCfg = Release|Win32
+		{DCC3C838-9803-497D-8C32-A5985644CCE9}.Debug|Mixed Platforms.Build.0 = Release|Win32
+		{DCC3C838-9803-497D-8C32-A5985644CCE9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DCC3C838-9803-497D-8C32-A5985644CCE9}.Debug|Win32.Build.0 = Debug|Win32
+		{DCC3C838-9803-497D-8C32-A5985644CCE9}.Release|Any CPU.ActiveCfg = Release|Win32
+		{DCC3C838-9803-497D-8C32-A5985644CCE9}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{DCC3C838-9803-497D-8C32-A5985644CCE9}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{DCC3C838-9803-497D-8C32-A5985644CCE9}.Release|Win32.ActiveCfg = Release|Win32
+		{DCC3C838-9803-497D-8C32-A5985644CCE9}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

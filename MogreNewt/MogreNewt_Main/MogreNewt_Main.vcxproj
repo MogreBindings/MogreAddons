@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>MogreNewt</ProjectName>
+    <ProjectGuid>{DCC3C838-9803-497D-8C32-A5985644CCE9}</ProjectGuid>
+    <RootNamespace>OgreNewt_Main</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <UseOfAtl>false</UseOfAtl>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">obj\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">obj\$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP3 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>.\inc;.\input_Newton;.\input_Mogre\Ogre_headers;.\input_Mogre\Ogre_headers\Threading;.\input_Mogre\Ogre_headers\Threading\WIN32;.\input_Mogre\OgreMain_headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>.\input_Mogre\Mogre_binary_release;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_OGRENEWT_DYNAMIC;_OGRENEWT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <GenerateXMLDocumentationFiles>false</GenerateXMLDocumentationFiles>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>OgreMain.lib;newton.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\input_Mogre\OgreMain_binaries;.\input_Newton;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <AdditionalIncludeDirectories>.\inc;.\input_Newton;.\input_Mogre\Ogre_headers;.\input_Mogre\Ogre_headers\Threading;.\input_Mogre\Ogre_headers\Threading\WIN32;.\input_Mogre\OgreMain_headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>.\input_Mogre\Mogre_binary_debug;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_OGRENEWT_DYNAMIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>OgreMain_d.lib;newton.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName)_d.dll</OutputFile>
+      <AdditionalLibraryDirectories>.\input_Mogre\OgreMain_binaries;.\input_Newton;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>true</AssemblyDebug>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="src\ContactJoint.cpp" />
+    <ClCompile Include="src\ContactMaterial.cpp" />
+    <ClCompile Include="src\Material.cpp" />
+    <ClCompile Include="src\OgreNewt_BasicJoints.cpp" />
+    <ClCompile Include="src\OgreNewt_Body.cpp" />
+    <ClCompile Include="src\OgreNewt_BodyInAABBIterator.cpp" />
+    <ClCompile Include="src\OgreNewt_Collision.cpp" />
+    <ClCompile Include="src\OgreNewt_CollisionPrimitives.cpp" />
+    <ClCompile Include="src\OgreNewt_CollisionSerializer.cpp" />
+    <ClCompile Include="src\OgreNewt_ContactCallback.cpp" />
+    <ClCompile Include="src\OgreNewt_Debugger.cpp" />
+    <ClCompile Include="src\OgreNewt_Joint.cpp" />
+    <ClCompile Include="src\OgreNewt_MaterialID.cpp" />
+    <ClCompile Include="src\OgreNewt_MaterialPair.cpp" />
+    <ClCompile Include="src\OgreNewt_RayCast.cpp" />
+    <ClCompile Include="src\OgreNewt_Tools.cpp" />
+    <ClCompile Include="src\OgreNewt_Vehicle.cpp" />
+    <ClCompile Include="src\OgreNewt_World.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\ContactJoint.h" />
+    <ClInclude Include="inc\ContactMaterial.h" />
+    <ClInclude Include="inc\Material.h" />
+    <ClInclude Include="inc\OgreNewt.h" />
+    <ClInclude Include="inc\OgreNewt_BasicFrameListener.h" />
+    <ClInclude Include="inc\OgreNewt_BasicJoints.h" />
+    <ClInclude Include="inc\OgreNewt_Body.h" />
+    <ClInclude Include="inc\OgreNewt_BodyInAABBIterator.h" />
+    <ClInclude Include="inc\OgreNewt_Collision.h" />
+    <ClInclude Include="inc\OgreNewt_CollisionPrimitives.h" />
+    <ClInclude Include="inc\OgreNewt_CollisionSerializer.h" />
+    <ClInclude Include="inc\OgreNewt_ContactCallback.h" />
+    <ClInclude Include="inc\OgreNewt_Debugger.h" />
+    <ClInclude Include="inc\OgreNewt_Joint.h" />
+    <ClInclude Include="inc\OgreNewt_MaterialID.h" />
+    <ClInclude Include="inc\OgreNewt_MaterialPair.h" />
+    <ClInclude Include="inc\OgreNewt_Math.h" />
+    <ClInclude Include="inc\OgreNewt_Prerequisites.h" />
+    <ClInclude Include="inc\OgreNewt_RayCast.h" />
+    <ClInclude Include="inc\OgreNewt_Tools.h" />
+    <ClInclude Include="inc\OgreNewt_Vehicle.h" />
+    <ClInclude Include="inc\OgreNewt_World.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

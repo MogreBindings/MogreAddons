@@ -1,0 +1,69 @@
+
+Some instructions for compiling MogreNewt.
+======================================================
+
+
+It's recommend to use the MogreBuilder (with option "-mogrenewt") for some preparations.
+
+
+1)
+Call MogreBuilder with the option "-mogrenewt". 
+It builds Mogre, download the MogreNewt sources and creates some needed subdirectories.
+
+
+
+2)
+Call MogreBuilder again with the option "-mogrenewt -onlyaddons"
+It doesn't build Mogre again, but copies some needed files to the MogreNewt subdirectories. 
+
+
+
+3)
+Download the needed filed of the Newton library. 
+
+You find them here:
+https://bitbucket.org/mogre/mogreaddons/downloads/MogreNewt__Newton_binaries_2.35.zip
+
+If the link is dead, look here:
+https://bitbucket.org/mogre/mogreaddons/downloads
+http://code.google.com/p/newton-dynamics/downloads/list
+
+Copy the files of the zip package to the directory "input_Newton".
+
+You find this directory at this path:
+<MogreBuilderTargetDirectory> \ MogreAddons \ MogreNewt \ MogreNewt_Main \ input_Newton
+
+
+
+4)
+Open the file "MogreNewt_VS2010.sln" with Visual Studio and compile it.
+
+Important: 
+Choose the "Release" build setting before you build. 
+You can do this by the ComboBox below the menu of Visual Studio. 
+Otherwise you will get a "Mogre_d.dll not found" error.
+
+
+
+5)
+Copy the files "MogreNewt.dll" AND "newton.dll" to the binary directory your project. 
+
+"newton.dll" you find here:
+<MogreBuilderTargetDirectory> \ MogreAddons \ MogreNewt \ MogreNewt_Main \ input_Newton
+
+"MogreNewt.dll" you find here:
+<MogreBuilderTargetDirectory> \ MogreAddons \ MogreNewt \ MogreNewt_Main \ lib \ Release 
+
+
+
+
+For questions related to MogreNewt use this forum topic:
+http://www.ogre3d.org/addonforums/viewtopic.php?f=8&t=9193
+
+For questions related to MogreBuilder use this forum topic: 
+http://www.ogre3d.org/addonforums/viewtopic.php?f=8&t=29272
+
+
+Greetings
+Beauty
+(written in 2012)
