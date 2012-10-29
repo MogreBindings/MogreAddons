@@ -12,8 +12,10 @@
 #define _INCLUDE_OGRENEWT_DEBUGGER
 
 
+#pragma managed(push, off)
 #include <Ogre.h>
 #include <Newton.h>
+#pragma managed(pop)
 #include "OgreNewt_Tools.h"
 
 namespace MogreNewt

@@ -11,7 +11,9 @@
 #ifndef _INCLUDE_OGRENEWT_MATERIALPAIR
 #define _INCLUDE_OGRENEWT_MATERIALPAIR
 
+#pragma managed(push, off)
 #include <Newton.h>
+#pragma managed(pop)
 #include "OgreNewt_World.h"
 #include "OgreNewt_ContactCallback.h"
 #include "OgreNewt_MaterialID.h"

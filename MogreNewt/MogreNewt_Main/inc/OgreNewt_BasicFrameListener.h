@@ -21,7 +21,9 @@
 */
 
 #pragma once
+#pragma managed(push, off)
 #include <Ogre.h>
+#pragma managed(pop)
 #include <OgreNewt_World.h>
 
 

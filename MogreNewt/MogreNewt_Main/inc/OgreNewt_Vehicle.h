@@ -11,7 +11,9 @@
 #ifndef _INCLUDE_OGRENEWT_VEHICLE
 #define _INCLUDE_OGRENEWT_VEHICLE
 
+#pragma managed(push, off)
 #include <Newton.h>
+#pragma managed(pop)
 #include "OgreNewt_Body.h"
 #include "OgreNewt_Joint.h"
 #include "OgreNewt_World.h"

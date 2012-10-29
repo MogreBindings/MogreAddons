@@ -28,8 +28,13 @@ void Body::_ctor(MogreNewt::World^ W, MogreNewt::Collision^ col, int bodytype, b
 	m_funcptr_buoyancycallback = (NewtonGetBuoyancyPlane) Marshal::GetFunctionPointerForDelegate( m_NewtonBuoyancyPlaneCallbackDelegate ).ToPointer();
 
 
-
-	m_body = NewtonCreateBody( m_world->NewtonWorld, col->NewtonCollision ); 
+  static dFloat IdentityMatrix[] = {
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	};	
+	m_body = NewtonCreateBody( m_world->NewtonWorld, col->NewtonCollision, IdentityMatrix ); 
 
 	m_nativeInfo = new BodyNativeInfo( this );
 

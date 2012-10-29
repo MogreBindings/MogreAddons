@@ -1,4 +1,6 @@
+#pragma managed(push, off)
 #include <assert.h>
+#pragma managed(pop)
 #include <OgreNewt_Joint.h>
 
 

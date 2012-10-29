@@ -10,8 +10,10 @@
 #ifndef _INCLUDE_OGRENEWT_WORLD
 #define _INCLUDE_OGRENEWT_WORLD
 
+#pragma managed(push, off)
 #include <Newton.h>
 #include <Ogre.h>
+#pragma managed(pop)
 #include "OgreNewt_Prerequisites.h"
 #include "OgreNewt_Debugger.h"
 #include "OgreNewt_MaterialID.h"

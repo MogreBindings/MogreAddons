@@ -12,8 +12,10 @@
 #define _INCLUDE_OGRENEWT_TOOLS
 
 
+#pragma managed(push, off)
 #include <Ogre.h>
 #include <Newton.h>
+#pragma managed(pop)
 #include "OgreNewt_Prerequisites.h"
 /*#include "OgreNewt_World.h"
 #include "OgreNewt_Collision.h"*/

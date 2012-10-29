@@ -1,7 +1,9 @@
 #include <OgreNewt_CollisionPrimitives.h>
 #include <OgreNewt_Tools.h>
 
-#include "Ogre.h"
+#pragma managed(push, off)
+#include <Ogre.h>
+#pragma managed(pop)
 
 namespace MogreNewt
 {
